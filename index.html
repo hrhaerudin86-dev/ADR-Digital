@@ -1,1246 +1,1698 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS DIGITAL — Layanan Sosmed, App Premium & Top-Up</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Be Vietnam Pro (Sesuai Design System OnThi) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Be Vietnam Pro"', 'system-ui', '-apple-system', 'sans-serif'],
-                    },
-                    colors: {
-                        onthi: {
-                            primary: '#6366F1',
-                            link: '#6D28D9',
-                            canvas: '#F7F7FD',
-                            ink: '#1E293B',
-                            body: '#64748B',
-                            muted: '#94A3B8',
-                            faint: '#CBD5E1',
-                            hairline: '#E2E8F0',
-                            lime: '#58CC02',
-                            limeHover: '#4CB302',
-                            softPurple: '#EDE9FE',
-                            accentBlue: '#0369A1',
-                            accentPurple: '#7C3AED',
-                            accentIndigo: '#4F46E5',
-                            accentOrange: '#C2410C',
-                            pastelYellow: '#FDE68A',
-                            pastelOrange: '#FED7AA',
-                        }
-                    },
-                    borderRadius: {
-                        'onthi-xs': '8px',
-                        'onthi-sm': '16px',
-                        'onthi-pill': '24px',
-                        'onthi-md': '32px',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* OnThi Design System Custom Utilities */
-        body {
-            background-color: #F7F7FD;
-            color: #1E293B;
-            font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADR DIGITAL — Layanan Suntik Sosmed & App Premium Tercepat</title>
 
-        /* Soft Colored Shadows (No heavy black drop shadows) */
-        .shadow-onthi-sm {
-            box-shadow: rgb(199, 210, 254) 0px 4px 6px -1px, rgb(199, 210, 254) 0px 2px 4px -2px;
-        }
-        .shadow-onthi-md {
-            box-shadow: rgba(124, 58, 237, 0.08) 0px 4px 16px 0px;
-        }
-        .shadow-onthi-lime {
-            box-shadow: rgb(187, 247, 208) 0px 10px 15px -3px, rgb(187, 247, 208) 0px 4px 6px -4px;
-        }
-        .shadow-onthi-lime:hover {
-            box-shadow: rgb(134, 239, 172) 0px 12px 20px -3px, rgb(187, 247, 208) 0px 4px 6px -4px;
-        }
+  <!-- Google Fonts: Be Vietnam Pro (OnThi Design System Typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;900&display=swap" rel="stylesheet" />
 
-        /* Hero & Section Gradients from OnThi */
-        .bg-hero-gradient {
-            background: linear-gradient(to right bottom, rgb(240, 249, 255), rgb(255, 255, 255));
-        }
-        .bg-snk-gradient {
-            background: linear-gradient(to right bottom, rgb(255, 251, 235), rgb(254, 215, 170, 0.45));
-        }
-        .bg-card-pastel-purple {
-            background: linear-gradient(to right bottom, rgb(245, 243, 255), rgb(255, 255, 255));
-        }
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & RESET (ONTHI DESIGN SYSTEM - PURE CSS)
+       ========================================================================== */
+    :root {
+      --color-primary: #6366F1;
+      --color-primary-dark: #4F46E5;
+      --color-link: #6D28D9;
+      --color-canvas: #F7F7FD;
+      --color-surface: #FFFFFF;
+      --color-surface-soft: #EDE9FE;
+      --color-ink: #1E293B;
+      --color-body: #64748B;
+      --color-muted: #94A3B8;
+      --color-hairline: #E2E8F0;
 
-        /* Card & Interactive Hover States */
-        .product-card {
-            background-color: #FFFFFF;
-            border: 2px solid #E2E8F0;
-            border-radius: 24px;
-            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .product-card:hover {
-            transform: translateY(-4px);
-            border-color: #6366F1;
-            box-shadow: rgb(199, 210, 254) 0px 10px 20px -5px, rgb(221, 214, 254) 0px 4px 8px -4px;
-        }
+      /* Decorative & Action Accents */
+      --color-lime: #58CC02;
+      --color-lime-hover: #4DB502;
+      --color-lime-shadow: #BBF7D0;
+      --color-indigo-shadow: #C7D2FE;
+      --color-accent-blue: #0369A1;
+      --color-accent-orange: #C2410C;
+      --color-pastel-yellow: #FDE68A;
+      --color-pastel-orange: #FED7AA;
 
-        .btn-lime {
-            background-color: #58CC02;
-            color: #FFFFFF;
-            font-weight: 900;
-            border-radius: 16px;
-            box-shadow: rgb(187, 247, 208) 0px 10px 15px -3px, rgb(187, 247, 208) 0px 4px 6px -4px;
-            transition: all 0.2s ease;
-        }
-        .btn-lime:hover {
-            background-color: #4CB302;
-            transform: translateY(-1px);
-        }
-        .btn-lime:active {
-            transform: translateY(1px);
-        }
+      /* Radii & Spacing */
+      --radius-xs: 8px;
+      --radius-sm: 16px;
+      --radius-pill: 24px;
+      --radius-md: 32px;
 
-        .btn-primary-onthi {
-            background-color: #6366F1;
-            color: #FFFFFF;
-            font-weight: 900;
-            border-radius: 16px;
-            box-shadow: rgb(199, 210, 254) 0px 4px 6px -1px, rgb(199, 210, 254) 0px 2px 4px -2px;
-            transition: all 0.2s ease;
-        }
-        .btn-primary-onthi:hover {
-            background-color: #4F46E5;
-        }
+      /* Shadows */
+      --shadow-sm: 0px 4px 6px -1px #C7D2FE, 0px 2px 4px -2px #C7D2FE;
+      --shadow-md: 0px -2px 16px 0px rgba(124, 58, 237, 0.08);
+      --shadow-card: 0px 4px 12px -2px rgba(99, 102, 241, 0.06);
+      --shadow-lime: 0px 10px 15px -3px #BBF7D0, 0px 4px 6px -4px #BBF7D0;
+    }
 
-        /* Hide scrollbar for category horizontal scroll on mobile */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    button, input, textarea {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==========================================================================
+       2. LAYOUT CONTAINER & STICKY HEADER
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 1088px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 32px;
+      }
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-hairline);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 72px;
+      padding: 12px 0;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #6366F1, #7C3AED);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .brand-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+      color: var(--color-ink);
+      line-height: 1.1;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #15803D;
+      background-color: #DCFCE7;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      width: fit-content;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #22C55E;
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.25); }
+    }
+
+    .btn-snk-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-surface);
+      border: 2px solid var(--color-hairline);
+      color: var(--color-ink);
+      font-size: 13px;
+      font-weight: 900;
+      transition: all 0.2s ease;
+    }
+
+    .btn-snk-header:hover {
+      border-color: var(--color-primary);
+      background-color: var(--color-surface-soft);
+      color: var(--color-link);
+    }
+
+    /* ==========================================================================
+       3. HERO & SNK WARNING SECTION
+       ========================================================================== */
+    .main-content {
+      flex: 1;
+      padding: 24px 0 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .hero-card {
+      background: linear-gradient(to right bottom, #F5F3FF, #FFFFFF);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    @media (min-width: 860px) {
+      .hero-card {
+        grid-template-columns: 1.35fr 1fr;
+        padding: 32px;
+        gap: 28px;
+      }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: var(--color-link);
+      background-color: var(--color-surface-soft);
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+    }
+
+    .hero-headline {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.8px;
+      color: var(--color-ink);
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-headline {
+        font-size: 38px;
+        letter-spacing: -1px;
+      }
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--color-body);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mini-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-ink);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-hairline);
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    .snk-alert-box {
+      background-color: #FFFBEB;
+      border: 2px solid var(--color-pastel-yellow);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .snk-alert-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--color-accent-orange);
+    }
+
+    .snk-alert-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: #78350F;
+    }
+
+    .snk-alert-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .snk-bullet {
+      font-weight: 900;
+      color: var(--color-accent-orange);
+    }
+
+    .btn-link-snk {
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--color-link);
+      text-decoration: underline;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       4. STEP 1 & 2: CATEGORY FILTER + SEARCH + CATALOG CARDS
+       ========================================================================== */
+    .section-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    @media (min-width: 768px) {
+      .section-card {
+        padding: 24px;
+      }
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--color-ink);
+      line-height: 1.25;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--color-body);
+    }
+
+    .filter-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 820px) {
+      .filter-toolbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-body);
+      background-color: var(--color-canvas);
+      border: 2px solid var(--color-hairline);
+      transition: all 0.18s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-ink);
+    }
+
+    .tab-btn.active {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #FFFFFF;
+      font-weight: 900;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    @media (min-width: 820px) {
+      .search-box {
+        width: 270px;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 42px;
+      padding: 8px 14px 8px 40px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--color-hairline);
+      background-color: var(--color-canvas);
+      font-size: 13px;
+      color: var(--color-ink);
+      transition: border-color 0.18s ease, background-color 0.18s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      background-color: #FFFFFF;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 600px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .product-card {
+      background-color: var(--color-surface);
+      border: 2px solid var(--color-hairline);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .product-card:hover {
+      border-color: var(--color-primary);
+      background-color: rgba(255, 251, 235, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .product-card.selected {
+      border-color: var(--color-primary);
+      background-color: var(--color-surface-soft);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-top {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .platform-label {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--color-accent-blue);
+      background-color: #E0F2FE;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    .badge-tag {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    .badge-refill {
+      background-color: #DCFCE7;
+      color: #15803D;
+    }
+
+    .badge-fast {
+      background-color: #EDE9FE;
+      color: #6D28D9;
+    }
+
+    .badge-hot {
+      background-color: #FED7AA;
+      color: #C2410C;
+    }
+
+    .product-name {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--color-ink);
+      line-height: 1.35;
+    }
+
+    .product-desc {
+      font-size: 12px;
+      color: var(--color-body);
+      line-height: 1.45;
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--color-hairline);
+    }
+
+    .product-price {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--color-primary);
+    }
+
+    .btn-select-pkg {
+      padding: 7px 14px;
+      border-radius: 12px;
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: var(--shadow-sm);
+      transition: background-color 0.15s ease;
+    }
+
+    .product-card.selected .btn-select-pkg {
+      background-color: var(--color-lime);
+      box-shadow: var(--shadow-lime);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--color-body);
+      font-size: 14px;
+      display: none;
+    }
+
+    /* ==========================================================================
+       5. STEP 3: INTERACTIVE TOPUPSKUY-STYLE CHECKOUT PANEL
+       ========================================================================== */
+    .checkout-wrapper {
+      background: linear-gradient(to right bottom, #F0F9FF, #FFFFFF);
+      border: 2px solid #BAE6FD;
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 768px) {
+      .checkout-wrapper {
+        padding: 30px;
+      }
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    @media (min-width: 860px) {
+      .checkout-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 28px;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--color-ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .label-hint {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-muted);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--color-hairline);
+      background-color: #FFFFFF;
+      font-size: 14px;
+      color: var(--color-ink);
+      transition: border-color 0.18s ease;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .form-textarea {
+      min-height: 76px;
+      resize: vertical;
+    }
+
+    /* Payment Method Pills */
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .pay-pill {
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      background-color: #FFFFFF;
+      border: 2px solid var(--color-hairline);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: all 0.15s ease;
+    }
+
+    .pay-pill:hover {
+      border-color: var(--color-primary);
+    }
+
+    .pay-pill.active {
+      border-color: var(--color-primary);
+      background-color: var(--color-surface-soft);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pay-name {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--color-ink);
+    }
+
+    .pay-sub {
+      font-size: 11px;
+      color: var(--color-body);
+    }
+
+    /* Summary Box */
+    .summary-card {
+      background-color: #FFFFFF;
+      border: 2px solid var(--color-hairline);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .summary-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--color-ink);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--color-hairline);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .summary-row span:first-child {
+      color: var(--color-body);
+    }
+
+    .summary-row span:last-child {
+      font-weight: 700;
+      color: var(--color-ink);
+      text-align: right;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 2px dashed var(--color-hairline);
+      margin-top: 4px;
+    }
+
+    .summary-total-label {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--color-ink);
+    }
+
+    .summary-total-value {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--color-primary);
+    }
+
+    .snk-checkbox-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background-color: var(--color-canvas);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--color-hairline);
+      cursor: pointer;
+    }
+
+    .snk-checkbox-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--color-primary);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .snk-checkbox-text {
+      font-size: 12px;
+      color: var(--color-ink);
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    /* Main Lime Green CTA Button (OnThi Token) */
+    .btn-lime-cta {
+      width: 100%;
+      min-height: 57px;
+      padding: 14px 24px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-lime);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--shadow-lime);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .btn-lime-cta:hover {
+      background-color: var(--color-lime-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-lime-cta:active {
+      transform: translateY(0);
+    }
+
+    .error-banner {
+      display: none;
+      background-color: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: #B91C1C;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    /* ==========================================================================
+       6. FOOTER
+       ========================================================================== */
+    .site-footer {
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--color-hairline);
+      padding: 24px 0;
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      font-size: 13px;
+      color: var(--color-body);
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .footer-wa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 900;
+      color: var(--color-link);
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-surface-soft);
+      transition: background-color 0.15s ease;
+    }
+
+    .footer-wa-link:hover {
+      background-color: #DDD6FE;
+    }
+
+    /* ==========================================================================
+       7. MODAL (SYARAT & KETENTUAN)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background-color: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background-color: #FFFFFF;
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 540px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-hairline);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--color-ink);
+    }
+
+    .btn-close-modal {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+    }
+
+    .snk-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--color-body);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .snk-rule-item {
+      background-color: var(--color-canvas);
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--color-hairline);
+    }
+
+    .snk-rule-item strong {
+      display: block;
+      color: var(--color-ink);
+      font-weight: 900;
+      margin-bottom: 2px;
+    }
+
+    .btn-modal-ok {
+      width: 100%;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-onthi-primary selection:text-white">
+<body>
 
-    <!-- Top Admin Setup Reminder Banner -->
-    <div id="adminWarningBanner" class="hidden bg-onthi-pastelYellow/70 border-b border-amber-300 text-onthi-accentOrange px-4 py-2.5 text-xs sm:text-sm text-center font-semibold">
-        <span>👋 Halo Pemilik Toko! Nomor WhatsApp masih menggunakan nomor contoh. </span>
-        <button onclick="openSettingsModal()" class="underline font-black text-onthi-link hover:text-onthi-primary ml-1">Klik di sini untuk atur Nomor WA & Nama Toko</button>
-    </div>
-
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-onthi-hairline">
-        <div class="max-w-[1088px] mx-auto px-4 sm:px-8 h-18 py-3 flex items-center justify-between gap-3">
-            <!-- Brand Logo & Name -->
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-[16px] bg-onthi-primary flex items-center justify-center shadow-onthi-sm shrink-0">
-                    <i data-lucide="zap" class="w-6 h-6 text-white"></i>
-                </div>
-                <div>
-                    <h1 id="displayStoreName" class="font-black text-lg sm:text-xl tracking-tight text-onthi-ink leading-tight">
-                        NEXUS DIGITAL
-                    </h1>
-                    <p class="text-xs text-onthi-lime flex items-center gap-1.5 font-bold">
-                        <span class="w-2.5 h-2.5 rounded-full bg-onthi-lime animate-pulse"></span>
-                        Server Aktif • Proses Cepat
-                    </p>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-2.5">
-                <button onclick="openSnkModal()" class="px-3.5 py-2.5 rounded-[16px] bg-onthi-pastelOrange/50 hover:bg-onthi-pastelOrange/80 border-2 border-orange-200 text-onthi-accentOrange text-xs sm:text-sm font-black flex items-center gap-1.5 transition">
-                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                    <span>SNK Wajib</span>
-                </button>
-                <button onclick="openSettingsModal()" class="px-3.5 py-2.5 rounded-[16px] bg-onthi-softPurple hover:bg-indigo-100 border-2 border-indigo-200 text-onthi-link text-xs sm:text-sm font-black flex items-center gap-1.5 transition" title="Pengaturan Pemilik Toko">
-                    <i data-lucide="settings" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">Atur Toko</span>
-                </button>
-            </div>
+  <!-- ========================================================================
+       STICKY HEADER
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-group">
+        <div class="brand-logo" aria-hidden="true">
+          <!-- Inline SVG Bolt Icon -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="flex-grow max-w-[1088px] w-full mx-auto px-4 sm:px-8 py-6 sm:py-9 space-y-8">
-
-        <!-- Hero & Mandatory SNK Alert Section -->
-        <section class="rounded-[32px] bg-hero-gradient border-2 border-onthi-hairline p-6 sm:p-8 shadow-onthi-md">
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                <!-- Left Hero Copy -->
-                <div class="space-y-3.5 max-w-xl">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[24px] bg-onthi-softPurple border border-indigo-200 text-onthi-link text-[11px] font-black uppercase tracking-[1.1px]">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-onthi-primary"></i>
-                        <span>Katalog Layanan Sosmed & Digital</span>
-                    </div>
-                    <h2 class="text-2xl sm:text-4xl lg:text-[42px] font-black text-onthi-ink leading-[1.1] tracking-[-1px]">
-                        Naikkan Interaksi Sosmed & App Premium Jadi Mudah!
-                    </h2>
-                    <p class="text-onthi-body text-sm sm:text-base font-normal leading-relaxed">
-                        Pilih layanan TikTok, Instagram, Aplikasi Premium, hingga Top-Up E-Wallet. Cukup isi data target dan kirim pesanan otomatis ke WhatsApp Admin.
-                    </p>
-                </div>
-
-                <!-- Right Mandatory Warning Box (Warm Pastel Orange/Yellow) -->
-                <div class="bg-snk-gradient border-2 border-orange-200 rounded-[24px] p-5 lg:max-w-sm shrink-0">
-                    <div class="flex items-start gap-3.5">
-                        <div class="w-10 h-10 rounded-[16px] bg-onthi-pastelYellow border border-amber-300 text-onthi-accentOrange flex items-center justify-center shrink-0">
-                            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
-                        </div>
-                        <div class="space-y-1.5">
-                            <h3 class="text-xs font-black text-onthi-accentOrange uppercase tracking-[1.1px]">
-                                ⚠️ Wajib Baca SNK Sebelum Beli
-                            </h3>
-                            <p class="text-xs sm:text-[13px] text-onthi-ink/90 leading-relaxed font-medium">
-                                Tidak ada garansi & refund bagi yang melanggar SNK (akun di-privat, salah username/link, atau ganti username saat proses).
-                            </p>
-                            <button onclick="openSnkModal()" class="inline-flex items-center gap-1 text-xs font-black text-onthi-link hover:text-onthi-primary pt-1 transition">
-                                <span>Lihat Detail Aturan SNK</span>
-                                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Category Tabs & Search Filter Bar -->
-        <section class="space-y-4">
-            <div class="flex flex-col md:flex-row gap-3.5 justify-between items-stretch md:items-center">
-                <!-- Category Pill Tabs -->
-                <div id="categoryTabs" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-                    <button data-category="all" class="cat-btn active px-4 py-2.5 rounded-[16px] text-sm font-black whitespace-nowrap bg-onthi-primary text-white shadow-onthi-sm transition">
-                        Semua Layanan
-                    </button>
-                    <button data-category="smm" class="cat-btn px-4 py-2.5 rounded-[16px] text-sm font-bold whitespace-nowrap bg-white text-onthi-ink hover:bg-onthi-softPurple border-2 border-onthi-hairline transition">
-                        🚀 Suntik Sosmed
-                    </button>
-                    <button data-category="app" class="cat-btn px-4 py-2.5 rounded-[16px] text-sm font-bold whitespace-nowrap bg-white text-onthi-ink hover:bg-onthi-softPurple border-2 border-onthi-hairline transition">
-                        💎 App Premium
-                    </button>
-                    <button data-category="topup" class="cat-btn px-4 py-2.5 rounded-[16px] text-sm font-bold whitespace-nowrap bg-white text-onthi-ink hover:bg-onthi-softPurple border-2 border-onthi-hairline transition">
-                        🎮 Top-Up & E-Wallet
-                    </button>
-                </div>
-
-                <!-- Search Input -->
-                <div class="relative w-full md:w-72">
-                    <i data-lucide="search" class="w-4 h-4 text-onthi-muted absolute left-4 top-1/2 -translate-y-1/2"></i>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        placeholder="Cari TikTok, IG, Canva, Netflix..." 
-                        class="w-full pl-11 pr-4 py-2.5 rounded-[16px] bg-white border-2 border-onthi-hairline text-sm font-medium text-onthi-ink placeholder-onthi-muted focus:outline-none focus:border-onthi-primary transition"
-                    >
-                </div>
-            </div>
-        </section>
-
-        <!-- Product Catalog Grid -->
-        <section>
-            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Products rendered dynamically by JavaScript -->
-            </div>
-
-            <!-- Empty State when search yields no results -->
-            <div id="emptyState" class="hidden bg-white border-2 border-onthi-hairline rounded-[24px] p-10 text-center space-y-3 shadow-onthi-md">
-                <div class="w-14 h-14 rounded-[16px] bg-onthi-softPurple flex items-center justify-center mx-auto text-onthi-primary">
-                    <i data-lucide="search-x" class="w-7 h-7"></i>
-                </div>
-                <h3 class="text-lg font-black text-onthi-ink">Layanan tidak ditemukan</h3>
-                <p class="text-sm text-onthi-body max-w-md mx-auto">Coba gunakan kata kunci lain seperti "Followers", "Views", "Canva", atau klik tombol di bawah untuk melihat semua layanan.</p>
-                <div class="pt-1">
-                    <button onclick="resetFilters()" class="btn-primary-onthi px-5 py-2.5 text-sm">
-                        Tampilkan Semua Layanan
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- How to Order Section (Color-Blocked Pastel Steps) -->
-        <section class="bg-white border-2 border-onthi-hairline rounded-[32px] p-6 sm:p-8 shadow-onthi-md">
-            <div class="mb-5">
-                <span class="text-[11px] font-black uppercase tracking-[1.1px] text-onthi-primary">Panduan Singkat</span>
-                <h3 class="text-xl sm:text-2xl font-black text-onthi-ink mt-0.5">
-                    Cara Pemesanan Super Cepat
-                </h3>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="p-4 rounded-[20px] bg-sky-50/80 border-2 border-sky-200 flex items-start gap-3">
-                    <span class="w-8 h-8 rounded-[12px] bg-onthi-accentBlue text-white font-black text-sm flex items-center justify-center shrink-0">1</span>
-                    <div>
-                        <h4 class="text-sm font-black text-onthi-ink">Pilih Paket</h4>
-                        <p class="text-xs text-onthi-body mt-1 leading-relaxed">Klik tombol hijau <strong>Beli Sekarang</strong> pada layanan yang diinginkan.</p>
-                    </div>
-                </div>
-                <div class="p-4 rounded-[20px] bg-violet-50/80 border-2 border-violet-200 flex items-start gap-3">
-                    <span class="w-8 h-8 rounded-[12px] bg-onthi-accentPurple text-white font-black text-sm flex items-center justify-center shrink-0">2</span>
-                    <div>
-                        <h4 class="text-sm font-black text-onthi-ink">Isi Data Target</h4>
-                        <p class="text-xs text-onthi-body mt-1 leading-relaxed">Masukkan username/link postingan (pastikan akun publik) atau email.</p>
-                    </div>
-                </div>
-                <div class="p-4 rounded-[20px] bg-amber-50/80 border-2 border-amber-200 flex items-start gap-3">
-                    <span class="w-8 h-8 rounded-[12px] bg-onthi-accentOrange text-white font-black text-sm flex items-center justify-center shrink-0">3</span>
-                    <div>
-                        <h4 class="text-sm font-black text-onthi-ink">Kirim ke WA</h4>
-                        <p class="text-xs text-onthi-body mt-1 leading-relaxed">Struk pesanan otomatis tersusun rapi & terbuka di WhatsApp Admin.</p>
-                    </div>
-                </div>
-                <div class="p-4 rounded-[20px] bg-lime-50/80 border-2 border-lime-200 flex items-start gap-3">
-                    <span class="w-8 h-8 rounded-[12px] bg-onthi-lime text-white font-black text-sm flex items-center justify-center shrink-0">4</span>
-                    <div>
-                        <h4 class="text-sm font-black text-onthi-ink">Bayar & Proses</h4>
-                        <p class="text-xs text-onthi-body mt-1 leading-relaxed">Bayar via QRIS/E-Wallet, pesanan langsung masuk antrean server.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-onthi-hairline bg-white mt-10">
-        <div class="max-w-[1088px] mx-auto px-4 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-onthi-body">
-            <div class="flex items-center gap-2">
-                <span id="footerStoreName" class="font-black text-onthi-ink">NEXUS DIGITAL</span>
-                <span>•</span>
-                <span>Layanan Sosmed & Produk Digital</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <button onclick="openSnkModal()" class="font-bold text-onthi-link hover:underline transition">Syarat & Ketentuan (SNK)</button>
-                <button onclick="openSettingsModal()" class="px-3.5 py-2 rounded-[16px] bg-onthi-softPurple text-onthi-link hover:bg-indigo-100 font-black text-xs flex items-center gap-1.5 transition">
-                    <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
-                    <span>Mode Edit Admin</span>
-                </button>
-            </div>
+        <div class="brand-title-wrap">
+          <span class="brand-name">ADR DIGITAL</span>
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            Server Aktif 24 Jam
+          </span>
         </div>
-    </footer>
+      </div>
 
-    <!-- ===================================================================== -->
-    <!-- MODAL 1: CHECKOUT & WHATSAPP ORDER GENERATOR                          -->
-    <!-- ===================================================================== -->
-    <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-        <div class="bg-white border-2 border-onthi-hairline rounded-[24px] w-full max-w-lg max-h-[92vh] overflow-y-auto shadow-onthi-md">
-            <!-- Modal Header -->
-            <div class="p-5 border-b border-onthi-hairline flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur z-10">
-                <div>
-                    <span id="modalCategoryBadge" class="text-[10px] font-black uppercase tracking-[1px] px-3 py-1 rounded-[24px] bg-onthi-softPurple text-onthi-link">
-                        Kategori
-                    </span>
-                    <h3 id="modalProductTitle" class="text-lg sm:text-xl font-black text-onthi-ink mt-1.5 leading-snug">Nama Produk</h3>
-                </div>
-                <button onclick="closeCheckoutModal()" class="p-2 rounded-[16px] bg-onthi-canvas hover:bg-onthi-softPurple text-onthi-body hover:text-onthi-ink border border-onthi-hairline transition">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
+      <button type="button" class="btn-snk-header" id="openSnkBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <path d="M12 8v4"></path>
+          <path d="M12 16h.01"></path>
+        </svg>
+        <span>Syarat &amp; Ketentuan (SNK)</span>
+      </button>
+    </div>
+  </header>
 
-            <!-- Modal Body -->
-            <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="p-5 space-y-4">
-                <!-- Variant / Package Selector -->
-                <div>
-                    <label class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Pilih Paket / Nominal *</label>
-                    <select id="variantSelect" onchange="updateSelectedPrice()" class="w-full px-4 py-3 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline text-sm font-bold text-onthi-ink focus:outline-none focus:border-onthi-primary">
-                        <!-- Options injected via JS -->
-                    </select>
-                </div>
+  <!-- ========================================================================
+       MAIN CONTENT
+       ======================================================================== -->
+  <main class="container main-content">
 
-                <!-- Dynamic Target Input Field -->
-                <div id="targetFieldContainer">
-                    <label id="targetLabel" class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Username / Link Postingan Target *</label>
-                    <input 
-                        type="text" 
-                        id="targetInput" 
-                        required
-                        placeholder="Contoh: @username atau https://vt.tiktok.com/..." 
-                        class="w-full px-4 py-3 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline text-sm font-medium text-onthi-ink placeholder-onthi-muted focus:outline-none focus:border-onthi-primary"
-                    >
-                    <p id="targetHelper" class="text-xs text-onthi-accentOrange font-semibold mt-1.5 flex items-center gap-1.5">
-                        <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
-                        <span>Pastikan akun TIDAK di-privat selama proses berlangsung.</span>
-                    </p>
-                </div>
-
-                <!-- Optional Custom Comments Field (Only shown for Custom Comment products) -->
-                <div id="customCommentContainer" class="hidden">
-                    <label class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Daftar Komentar Custom (1 baris = 1 komentar) *</label>
-                    <textarea 
-                        id="customCommentInput" 
-                        rows="3" 
-                        placeholder="Contoh:&#10;Keren banget kak kontennya!&#10;Info belinya dimana kak?&#10;Mantap sukses terus!"
-                        class="w-full px-4 py-3 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline text-sm font-medium text-onthi-ink placeholder-onthi-muted focus:outline-none focus:border-onthi-primary"
-                    ></textarea>
-                </div>
-
-                <!-- Payment Method Selector -->
-                <div>
-                    <label class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Metode Pembayaran *</label>
-                    <div id="paymentMethodsGrid" class="grid grid-cols-2 gap-2.5">
-                        <!-- Payment options rendered dynamically -->
-                    </div>
-                </div>
-
-                <!-- Summary Price Box -->
-                <div class="p-4 rounded-[20px] bg-onthi-softPurple/70 border-2 border-indigo-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-bold text-onthi-body">Total Pembayaran</p>
-                        <p id="modalTotalPrice" class="text-xl font-black text-onthi-ink">Rp 0</p>
-                    </div>
-                    <div id="modalWarrantyBadge" class="text-right">
-                        <span class="px-3 py-1.5 rounded-[24px] bg-white text-onthi-accentBlue text-xs font-black border border-sky-200">
-                            Bergaransi
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Mandatory Checkboxes -->
-                <div class="space-y-2.5 pt-1">
-                    <label id="publicAccountCheckRow" class="flex items-start gap-2.5 cursor-pointer">
-                        <input type="checkbox" id="publicCheck" class="mt-0.5 w-4 h-4 rounded border-onthi-hairline text-onthi-primary focus:ring-onthi-primary">
-                        <span class="text-xs text-onthi-ink font-medium leading-snug">Saya pastikan akun target sudah diatur ke mode <strong>PUBLIK (Tidak Privat)</strong>.</span>
-                    </label>
-                    <label class="flex items-start gap-2.5 cursor-pointer">
-                        <input type="checkbox" id="snkCheck" required class="mt-0.5 w-4 h-4 rounded border-onthi-hairline text-onthi-primary focus:ring-onthi-primary">
-                        <span class="text-xs text-onthi-ink font-medium leading-snug">Saya sudah membaca dan menyetujui <button type="button" onclick="openSnkModal()" class="text-onthi-link font-black underline">Syarat & Ketentuan (SNK)</button> produk.</span>
-                    </label>
-                </div>
-
-                <!-- Submit & Copy Buttons -->
-                <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
-                    <button type="submit" class="btn-lime flex-1 py-3.5 px-5 text-sm sm:text-base flex items-center justify-center gap-2">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                        <span>Lanjut Order ke WhatsApp</span>
-                    </button>
-                    <button type="button" onclick="copyOrderText()" class="py-3.5 px-4 rounded-[16px] bg-white hover:bg-onthi-canvas text-onthi-ink font-black text-xs sm:text-sm border-2 border-onthi-hairline flex items-center justify-center gap-1.5 transition" title="Salin teks pesanan">
-                        <i data-lucide="copy" class="w-4 h-4 text-onthi-primary"></i>
-                        <span>Salin Format</span>
-                    </button>
-                </div>
-            </form>
+    <!-- HERO & MANDATORY SNK WARNING CARD -->
+    <section class="hero-card">
+      <div>
+        <div class="hero-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+          </svg>
+          <span>Katalog Resmi Reseller SMM &amp; Digital</span>
         </div>
-    </div>
-
-    <!-- ===================================================================== -->
-    <!-- MODAL 2: SYARAT & KETENTUAN (SNK) WAJIB BACA                          -->
-    <!-- ===================================================================== -->
-    <div id="snkModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-        <div class="bg-white border-2 border-onthi-hairline rounded-[24px] w-full max-w-lg max-h-[85vh] overflow-y-auto shadow-onthi-md">
-            <div class="p-5 border-b border-onthi-hairline flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur">
-                <div class="flex items-center gap-2.5 text-onthi-accentOrange">
-                    <div class="w-9 h-9 rounded-[12px] bg-onthi-pastelYellow flex items-center justify-center">
-                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="text-lg font-black text-onthi-ink">Syarat & Ketentuan (SNK)</h3>
-                </div>
-                <button onclick="closeSnkModal()" class="p-2 rounded-[16px] bg-onthi-canvas hover:bg-onthi-softPurple text-onthi-body hover:text-onthi-ink border border-onthi-hairline">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            <div class="p-5 space-y-4 text-sm text-onthi-body leading-relaxed">
-                <div class="p-3.5 rounded-[16px] bg-snk-gradient border-2 border-orange-200 text-onthi-ink text-xs font-semibold">
-                    <strong>Perhatian:</strong> Dengan melakukan pemesanan, pembeli dianggap telah membaca, memahami, dan menyetujui seluruh aturan di bawah ini.
-                </div>
-
-                <div class="space-y-3.5">
-                    <div>
-                        <h4 class="font-black text-onthi-ink flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-onthi-softPurple text-onthi-link text-xs flex items-center justify-center">1</span>
-                            Akun Sosmed Wajib Publik (Tidak Privat)
-                        </h4>
-                        <p class="text-onthi-body text-xs mt-1 pl-8">
-                            Selama proses penambahan followers, likes, atau views berlangsung (serta selama masa garansi), akun tidak boleh dikunci/di-privat. Pesanan yang gagal karena akun privat tidak dapat di-refund.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-onthi-ink flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-onthi-softPurple text-onthi-link text-xs flex items-center justify-center">2</span>
-                            Dilarang Mengganti Username / Link
-                        </h4>
-                        <p class="text-onthi-body text-xs mt-1 pl-8">
-                            Jangan mengubah username akun atau menghapus postingan sebelum pesanan berstatus selesai dan selama masa garansi masih berlaku. Perubahan username menggugurkan garansi otomatis.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-onthi-ink flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-onthi-softPurple text-onthi-link text-xs flex items-center justify-center">3</span>
-                            Perbedaan Layanan Refill vs No Refill
-                        </h4>
-                        <p class="text-onthi-body text-xs mt-1 pl-8">
-                            • <strong>Refill (Bergaransi):</strong> Jika jumlah followers berkurang dalam periode garansi (misal 30 hari), admin akan mengisi ulang secara gratis.<br>
-                            • <strong>No Refill (Tanpa Garansi):</strong> Harga lebih ekonomis, namun tidak ada isi ulang jika terjadi penurunan alami akibat pembersihan server platform.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-onthi-ink flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-onthi-softPurple text-onthi-link text-xs flex items-center justify-center">4</span>
-                            Kesalahan Input Pembeli (No Refund)
-                        </h4>
-                        <p class="text-onthi-body text-xs mt-1 pl-8">
-                            Pastikan penulisan username, link video, User ID Game, atau nomor e-wallet sudah benar 100%. Kesalahan penulisan oleh pembeli bukan tanggung jawab toko.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-onthi-ink flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-onthi-softPurple text-onthi-link text-xs flex items-center justify-center">5</span>
-                            Aturan Akun Aplikasi Premium (Sharing)
-                        </h4>
-                        <p class="text-onthi-body text-xs mt-1 pl-8">
-                            Untuk akun tipe Sharing/Invite, dilarang mengubah email, password, pengaturan profil lain, atau login melebihi batas perangkat (1 akun = 1 perangkat). Pelanggaran aturan akan menghanguskan garansi.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="pt-2">
-                    <button onclick="closeSnkModal()" class="btn-primary-onthi w-full py-3 text-sm">
-                        Saya Mengerti & Setuju
-                    </button>
-                </div>
-            </div>
+        <h1 class="hero-headline">Layanan Suntik Sosmed &amp; App Premium Tercepat</h1>
+        <p class="hero-sub">
+          Tingkatkan interaksi TikTok &amp; Instagram, langganan aplikasi premium bergaransi, hingga top-up e-wallet &amp; game dengan harga reseller termurah.
+        </p>
+        <div class="hero-badges">
+          <span class="mini-chip">⚡ Proses Cepat &amp; Aman</span>
+          <span class="mini-chip">🛡️ Tersedia Layanan Refill</span>
+          <span class="mini-chip">💳 QRIS / E-Wallet / Bank</span>
         </div>
-    </div>
+      </div>
 
-    <!-- ===================================================================== -->
-    <!-- MODAL 3: PENGATURAN ADMIN TOKO (CUSTOM NAMA, NO WA, INFO PEMBAYARAN)   -->
-    <!-- ===================================================================== -->
-    <div id="settingsModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-        <div class="bg-white border-2 border-onthi-hairline rounded-[24px] w-full max-w-md max-h-[90vh] overflow-y-auto shadow-onthi-md">
-            <div class="p-5 border-b border-onthi-hairline flex items-center justify-between sticky top-0 bg-white">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-[12px] bg-onthi-softPurple text-onthi-primary flex items-center justify-center">
-                        <i data-lucide="settings" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="text-lg font-black text-onthi-ink">Pengaturan Pemilik Toko</h3>
-                </div>
-                <button onclick="closeSettingsModal()" class="p-2 rounded-[16px] bg-onthi-canvas hover:bg-onthi-softPurple text-onthi-body hover:text-onthi-ink border border-onthi-hairline">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            <form onsubmit="saveStoreSettings(event)" class="p-5 space-y-4">
-                <div class="p-3.5 rounded-[16px] bg-sky-50 border-2 border-sky-200 text-xs text-onthi-accentBlue font-semibold leading-relaxed">
-                    Ubah nama toko, nomor WhatsApp, dan info rekening/pembayaran Anda di bawah ini. Tersimpan otomatis di browser Anda.
-                </div>
-
-                <div>
-                    <label class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Nama Toko Anda</label>
-                    <input type="text" id="settingStoreName" required placeholder="Contoh: SKUY DIGITAL STORE" class="w-full px-4 py-2.5 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline text-sm font-bold text-onthi-ink focus:outline-none focus:border-onthi-primary">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Nomor WhatsApp Admin (Awali 62)</label>
-                    <input type="tel" id="settingWaNumber" required placeholder="Contoh: 6281234567890" class="w-full px-4 py-2.5 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline text-sm font-bold text-onthi-ink focus:outline-none focus:border-onthi-primary">
-                    <p class="text-[11px] text-onthi-body mt-1">Gunakan format internasional tanpa + atau spasi (misal: <code class="text-onthi-link font-bold">6285712345678</code>).</p>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Info Rekening / E-Wallet Anda</label>
-                    <input type="text" id="settingPaymentInfo" placeholder="Contoh: DANA/GoPay: 0812xxx a.n Budi | QRIS Ready" class="w-full px-4 py-2.5 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline text-sm font-medium text-onthi-ink focus:outline-none focus:border-onthi-primary">
-                    <p class="text-[11px] text-onthi-body mt-1">Akan otomatis tercantum di pesan order WhatsApp pembeli.</p>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-black text-onthi-ink uppercase tracking-wide mb-1.5">Catatan Tambahan di Struk WA</label>
-                    <input type="text" id="settingFooterNote" placeholder="Contoh: Mohon kirim bukti transfer setelah bayar ya kak!" class="w-full px-4 py-2.5 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline text-sm font-medium text-onthi-ink focus:outline-none focus:border-onthi-primary">
-                </div>
-
-                <div class="pt-2 flex gap-2.5">
-                    <button type="submit" class="btn-lime flex-1 py-3 px-4 text-sm">
-                        Simpan Pengaturan
-                    </button>
-                    <button type="button" onclick="resetStoreSettings()" class="py-3 px-4 rounded-[16px] bg-white hover:bg-onthi-canvas text-onthi-body text-xs font-black border-2 border-onthi-hairline transition">
-                        Reset
-                    </button>
-                </div>
-            </form>
+      <aside class="snk-alert-box" aria-label="Peringatan SNK">
+        <div class="snk-alert-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>WAJIB BACA SEBELUM ORDER!</span>
         </div>
+        <ul class="snk-alert-list">
+          <li><span class="snk-bullet">•</span><span><strong>Akun Wajib Publik:</strong> Dilarang mengunci (privat) akun selama proses berlangsung.</span></li>
+          <li><span class="snk-bullet">•</span><span><strong>Jangan Ganti Username:</strong> Mengubah username/link saat proses menggugurkan garansi.</span></li>
+          <li><span class="snk-bullet">•</span><span><strong>No Refund:</strong> Kesalahan input link, username, atau ID oleh pembeli tidak dapat di-refund.</span></li>
+        </ul>
+        <button type="button" class="btn-link-snk" id="openSnkInlineBtn">Baca detail lengkap SNK &rarr;</button>
+      </aside>
+    </section>
+
+    <!-- STEP 1 & STEP 2: PILIH KATEGORI & PAKET LAYANAN -->
+    <section class="section-card">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div>
+          <h2 class="step-title">Pilih Kategori &amp; Paket Layanan</h2>
+          <p class="step-desc">Klik salah satu paket di bawah ini untuk langsung mengisi data pesanan.</p>
+        </div>
+      </div>
+
+      <!-- Filter Tabs & Search -->
+      <div class="filter-toolbar">
+        <div class="category-tabs" id="categoryTabs">
+          <button type="button" class="tab-btn active" data-category="all">Semua</button>
+          <button type="button" class="tab-btn" data-category="tiktok">TikTok SMM</button>
+          <button type="button" class="tab-btn" data-category="instagram">Instagram SMM</button>
+          <button type="button" class="tab-btn" data-category="app">App Premium</button>
+          <button type="button" class="tab-btn" data-category="topup">Top-Up &amp; E-Wallet</button>
+        </div>
+
+        <div class="search-box">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Cari layanan (cth: Followers, Canva)..." />
+        </div>
+      </div>
+
+      <!-- Product Catalog Grid -->
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-state" id="emptyState">
+        Layanan yang kamu cari tidak ditemukan. Coba kata kunci lain atau pilih kategori <strong>Semua</strong>.
+      </div>
+    </section>
+
+    <!-- STEP 3: INTERACTIVE CHECKOUT PANEL (TOPUPSKUY FLOW) -->
+    <section class="checkout-wrapper" id="checkoutSection">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div>
+          <h2 class="step-title">Lengkapi Data Tujuan &amp; Pembayaran</h2>
+          <p class="step-desc">Pastikan data tujuan sudah benar sebelum menekan tombol pesan via WhatsApp.</p>
+        </div>
+      </div>
+
+      <div class="checkout-grid">
+        <!-- Left Column: Inputs & Payment -->
+        <div>
+          <div class="form-group">
+            <label class="form-label" for="targetInput">
+              <span id="targetLabelText">Data Tujuan (Link Postingan / Username)</span>
+              <span class="label-hint">*Wajib diisi</span>
+            </label>
+            <input
+              type="text"
+              id="targetInput"
+              class="form-input"
+              placeholder="Contoh: https://vt.tiktok.com/xxxxx/ atau @username"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="noteInput">
+              <span>Catatan Tambahan / Isi Komentar Custom</span>
+              <span class="label-hint">Opsional</span>
+            </label>
+            <textarea
+              id="noteInput"
+              class="form-textarea"
+              placeholder="Tulis isi komentar (jika pesan komentar custom) atau catatan lain untuk admin..."
+            ></textarea>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">
+              <span>Pilih Metode Pembayaran</span>
+              <span class="label-hint">Konfirmasi ke Admin</span>
+            </label>
+            <div class="payment-grid" id="paymentGrid">
+              <button type="button" class="pay-pill active" data-payment="QRIS All Payment">
+                <span class="pay-name">QRIS All Payment</span>
+                <span class="pay-sub">DANA, OVO, GoPay, M-Banking</span>
+              </button>
+              <button type="button" class="pay-pill" data-payment="DANA">
+                <span class="pay-name">DANA</span>
+                <span class="pay-sub">Transfer Saldo DANA</span>
+              </button>
+              <button type="button" class="pay-pill" data-payment="GoPay">
+                <span class="pay-name">GoPay</span>
+                <span class="pay-sub">Transfer Saldo GoPay</span>
+              </button>
+              <button type="button" class="pay-pill" data-payment="SeaBank">
+                <span class="pay-name">SeaBank</span>
+                <span class="pay-sub">Transfer Bank / Shopee</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Summary & WhatsApp CTA -->
+        <div class="summary-card">
+          <div>
+            <h3 class="summary-title">Ringkasan Pesanan</h3>
+            <div class="summary-row">
+              <span>Kategori</span>
+              <span id="summaryCategory">TikTok SMM</span>
+            </div>
+            <div class="summary-row">
+              <span>Layanan</span>
+              <span id="summaryProduct">10.000 TikTok Views (Super Cepat)</span>
+            </div>
+            <div class="summary-row">
+              <span>Metode Bayar</span>
+              <span id="summaryPayment">QRIS All Payment</span>
+            </div>
+            <div class="summary-total">
+              <span class="summary-total-label">Total Harga</span>
+              <span class="summary-total-value" id="summaryPrice">Rp 3.000</span>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <label class="snk-checkbox-wrap" for="snkConfirmCheckbox">
+              <input type="checkbox" id="snkConfirmCheckbox" />
+              <span class="snk-checkbox-text">
+                Saya sudah membaca SNK: akun tidak di-privat dan data tujuan sudah benar.
+              </span>
+            </label>
+
+            <div class="error-banner" id="formErrorBanner"></div>
+
+            <button type="button" class="btn-lime-cta" id="orderWaBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+              <span>Pesan Sekarang via WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>ADR DIGITAL</strong> &copy; 2026 — Layanan Suntik Sosmed, App Premium &amp; Top-Up Terpercaya.
+      </div>
+      <a href="https://wa.me/6285320340377" target="_blank" rel="noopener noreferrer" class="footer-wa-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+        <span>Hubungi Admin WhatsApp</span>
+      </a>
     </div>
+  </footer>
 
-    <!-- Custom Toast Notification (No alert() used!) -->
-    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 px-4 py-3.5 rounded-[16px] bg-onthi-ink text-white text-xs sm:text-sm font-bold shadow-onthi-md">
-        <i data-lucide="check-circle-2" class="w-5 h-5 text-onthi-lime shrink-0"></i>
-        <span id="toastMessage">Berhasil!</span>
+  <!-- ========================================================================
+       MODAL SYARAT & KETENTUAN (SNK)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="snkModal" role="dialog" aria-modal="true" aria-labelledby="snkModalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="snkModalTitle">Syarat &amp; Ketentuan (SNK) ADR DIGITAL</h3>
+        <button type="button" class="btn-close-modal" id="closeSnkBtn" aria-label="Tutup">&times;</button>
+      </div>
+      <div class="snk-rules">
+        <div class="snk-rule-item">
+          <strong>1. Akun Wajib Publik (Tidak Privat)</strong>
+          Selama pesanan diproses hingga selesai, akun TikTok/Instagram wajib dalam keadaan publik. Pesanan gagal karena akun di-privat dianggap hangus (No Refund).
+        </div>
+        <div class="snk-rule-item">
+          <strong>2. Dilarang Mengubah Username atau Menghapus Postingan</strong>
+          Jangan mengganti username atau menghapus link video/foto selama proses berjalan dan selama masa garansi refill masih aktif.
+        </div>
+        <div class="snk-rule-item">
+          <strong>3. Ketentuan Garansi Refill</strong>
+          Garansi isi ulang (refill 30 hari) hanya berlaku pada paket yang mencantumkan keterangan "Refill". Layanan tanpa keterangan refill bersifat non-garansi.
+        </div>
+        <div class="snk-rule-item">
+          <strong>4. Akun App Premium (Canva, CapCut, Netflix, Spotify, YouTube)</strong>
+          Dilarang mengubah email, password, atau pengaturan profil utama pada akun sharing/invite. Pelanggaran aturan menyebabkan garansi gugur.
+        </div>
+        <div class="snk-rule-item">
+          <strong>5. Kesalahan Input Pembeli</strong>
+          Pastikan link postingan, username, email, atau nomor e-wallet/ID game sudah benar 100%. Kesalahan input bukan tanggung jawab admin.
+        </div>
+      </div>
+      <button type="button" class="btn-modal-ok" id="confirmSnkModalBtn">Saya Mengerti &amp; Setuju</button>
     </div>
+  </div>
 
-    <!-- ===================================================================== -->
-    <!-- JAVASCRIPT LOGIC & PRODUCT DATABASE                                   -->
-    <!-- ===================================================================== -->
-    <script>
-        // 1. Default Store Configuration (Saved in localStorage)
-        const DEFAULT_CONFIG = {
-            storeName: 'NEXUS DIGITAL',
-            waNumber: '6281234567890', // Ganti di menu "Atur Toko"
-            paymentInfo: 'QRIS All Payment / DANA / GoPay / SeaBank (Tanya Admin)',
-            footerNote: 'Mohon kirim bukti transfer setelah melakukan pembayaran agar pesanan langsung diproses.'
-        };
+  <!-- ========================================================================
+       APPLICATION LOGIC (HARDCODED SETTINGS, NO LOCALSTORAGE)
+       ======================================================================== -->
+  <script>
+    // Permanently locked store constants
+    const STORE_NAME = "ADR DIGITAL";
+    const ADMIN_WA = "6285320340377";
+    const PAYMENT_INFO = "QRIS All Payment / DANA / GoPay / SeaBank (Tanya Admin)";
+    const RECEIPT_NOTE = "Mohon kirim bukti transfer setelah melakukan pembayaran agar pesanan langsung diproses.";
 
-        let storeConfig = JSON.parse(localStorage.getItem('nexusStoreConfigOnthi')) || { ...DEFAULT_CONFIG };
+    // Complete Product Catalog
+    const PRODUCTS = [
+      // TikTok SMM
+      {
+        id: "tt-views-10k",
+        category: "tiktok",
+        categoryLabel: "TikTok SMM",
+        name: "10.000 TikTok Views (Super Cepat)",
+        price: "Rp 3.000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Menambah tayangan video TikTok secara instan. Cukup kirim link video.",
+        placeholder: "Masukkan Link Video TikTok (contoh: https://vt.tiktok.com/xxxxx/)",
+        label: "Link Video TikTok Tujuan"
+      },
+      {
+        id: "tt-likes-1k",
+        category: "tiktok",
+        categoryLabel: "TikTok SMM",
+        name: "1.000 TikTok Likes (Stabil)",
+        price: "Rp 6.000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Meningkatkan jumlah suka pada postingan video TikTok dengan kualitas stabil.",
+        placeholder: "Masukkan Link Video TikTok (contoh: https://vt.tiktok.com/xxxxx/)",
+        label: "Link Video TikTok Tujuan"
+      },
+      {
+        id: "tt-foll-500",
+        category: "tiktok",
+        categoryLabel: "TikTok SMM",
+        name: "500 TikTok Followers (Bergaransi Refill 30 Hari)",
+        price: "Rp 18.000",
+        badge: "Bergaransi Refill",
+        badgeClass: "badge-refill",
+        desc: "Followers berkualitas dengan garansi isi ulang 30 hari jika terjadi penurunan.",
+        placeholder: "Masukkan Username atau Link Profil TikTok (contoh: @username)",
+        label: "Username / Link Profil TikTok"
+      },
+      {
+        id: "tt-foll-1k",
+        category: "tiktok",
+        categoryLabel: "TikTok SMM",
+        name: "1.000 TikTok Followers (Bergaransi Refill 30 Hari)",
+        price: "Rp 34.000",
+        badge: "Best Seller",
+        badgeClass: "badge-hot",
+        desc: "Paket favorit untuk syarat live streaming TikTok. Dilengkapi garansi refill 30 hari.",
+        placeholder: "Masukkan Username atau Link Profil TikTok (contoh: @username)",
+        label: "Username / Link Profil TikTok"
+      },
+      {
+        id: "tt-komen-20",
+        category: "tiktok",
+        categoryLabel: "TikTok SMM",
+        name: "20 Komentar Custom TikTok (Akun Indo)",
+        price: "Rp 10.000",
+        badge: "Akun Indo",
+        badgeClass: "badge-fast",
+        desc: "Komentar dari akun Indonesia dengan isi teks komentar yang bisa kamu tentukan sendiri.",
+        placeholder: "Masukkan Link Video TikTok (tulis daftar komentar di kolom catatan)",
+        label: "Link Video TikTok Tujuan"
+      },
 
-        // 2. Complete Product Catalog Data
-        const PRODUCTS = [
-            // --- KATEGORI 1: SUNTIK SOSMED (SMM) ---
-            {
-                id: 'tt-views',
-                category: 'smm',
-                platform: 'TikTok',
-                badge: 'Terlaris • Instan',
-                estimate: '1 – 15 Menit',
-                pastelTheme: 'sky',
-                title: 'TikTok Views (Tayangan Video)',
-                description: 'Meningkatkan jumlah tayangan video TikTok secara cepat untuk mendorong algoritma FYP. Cukup kirim link video.',
-                warranty: 'No Drop / Stabil',
-                targetLabel: 'Link Video TikTok *',
-                targetPlaceholder: 'Contoh: https://vt.tiktok.com/ZSxxxx/',
-                variants: [
-                    { name: '1.000 Views TikTok', price: 2000 },
-                    { name: '5.000 Views TikTok', price: 5000 },
-                    { name: '10.000 Views TikTok', price: 8000 },
-                    { name: '50.000 Views TikTok', price: 30000 },
-                    { name: '100.000 Views TikTok', price: 55000 }
-                ]
-            },
-            {
-                id: 'tt-followers',
-                category: 'smm',
-                platform: 'TikTok',
-                badge: 'Refill 30 Hari',
-                estimate: '15 – 60 Menit',
-                pastelTheme: 'purple',
-                title: 'TikTok Followers Permanen (Garansi)',
-                description: 'Menambah pengikut akun TikTok dengan kualitas akun berfoto profil & bergaransi isi ulang 30 hari jika berkurang.',
-                warranty: 'Garansi Refill 30 Hari',
-                targetLabel: 'Username / Link Profil TikTok *',
-                targetPlaceholder: 'Contoh: @usernameanda',
-                variants: [
-                    { name: '100 Followers TikTok (Refill 30H)', price: 10000 },
-                    { name: '250 Followers TikTok (Refill 30H)', price: 22000 },
-                    { name: '500 Followers TikTok (Refill 30H)', price: 38000 },
-                    { name: '1.000 Followers TikTok (Refill 30H)', price: 70000 }
-                ]
-            },
-            {
-                id: 'tt-likes',
-                category: 'smm',
-                platform: 'TikTok',
-                badge: 'Proses Cepat',
-                estimate: '5 – 30 Menit',
-                pastelTheme: 'indigo',
-                title: 'TikTok Likes Postingan',
-                description: 'Menambah jumlah suka (love) pada video TikTok agar terlihat ramai dan meningkatkan kepercayaan penonton baru.',
-                warranty: 'Stabil',
-                targetLabel: 'Link Video TikTok *',
-                targetPlaceholder: 'Contoh: https://vt.tiktok.com/ZSxxxx/',
-                variants: [
-                    { name: '250 Likes TikTok', price: 3000 },
-                    { name: '500 Likes TikTok', price: 5000 },
-                    { name: '1.000 Likes TikTok', price: 9000 },
-                    { name: '3.000 Likes TikTok', price: 24000 }
-                ]
-            },
-            {
-                id: 'ig-followers',
-                category: 'smm',
-                platform: 'Instagram',
-                badge: 'Refill 30 Hari',
-                estimate: '10 – 45 Menit',
-                pastelTheme: 'purple',
-                title: 'Instagram Followers (Garansi Refill)',
-                description: 'Cocok untuk meningkatkan kredibilitas akun bisnis, olshop, maupun personal. Dilengkapi garansi refill 30 hari.',
-                warranty: 'Garansi Refill 30 Hari',
-                targetLabel: 'Username Instagram (Tanpa @) *',
-                targetPlaceholder: 'Contoh: tokokamu.id',
-                variants: [
-                    { name: '100 Followers IG (Refill 30H)', price: 8000 },
-                    { name: '300 Followers IG (Refill 30H)', price: 20000 },
-                    { name: '500 Followers IG (Refill 30H)', price: 32000 },
-                    { name: '1.000 Followers IG (Refill 30H)', price: 60000 }
-                ]
-            },
-            {
-                id: 'ig-likes-views',
-                category: 'smm',
-                platform: 'Instagram',
-                badge: 'Super Cepat',
-                estimate: '1 – 15 Menit',
-                pastelTheme: 'sky',
-                title: 'Instagram Likes & Reels Views',
-                description: 'Suntik likes foto/carousel atau views video Reels Instagram dalam hitungan menit.',
-                warranty: 'Stabil',
-                targetLabel: 'Link Postingan / Reels IG *',
-                targetPlaceholder: 'Contoh: https://www.instagram.com/p/xxxxx/',
-                variants: [
-                    { name: '500 Instagram Likes', price: 3500 },
-                    { name: '1.000 Instagram Likes', price: 6000 },
-                    { name: '5.000 Instagram Reels Views', price: 5000 },
-                    { name: '10.000 Instagram Reels Views', price: 9000 }
-                ]
-            },
-            {
-                id: 'ig-comments',
-                category: 'smm',
-                platform: 'Instagram',
-                badge: 'Akun Indonesia',
-                estimate: '15 – 60 Menit',
-                pastelTheme: 'orange',
-                title: 'Instagram Komentar Custom Indonesia',
-                description: 'Komentar dari akun real Indonesia dengan teks komentar yang bisa Anda tulis sendiri. Ampuh untuk testimoni jualan!',
-                warranty: 'Real User Indo',
-                isCustomComment: true,
-                targetLabel: 'Link Postingan Instagram *',
-                targetPlaceholder: 'Contoh: https://www.instagram.com/p/xxxxx/',
-                variants: [
-                    { name: '10 Komentar Custom Indo', price: 8000 },
-                    { name: '25 Komentar Custom Indo', price: 18000 },
-                    { name: '50 Komentar Custom Indo', price: 34000 }
-                ]
-            },
+      // Instagram SMM
+      {
+        id: "ig-likes-1k",
+        category: "instagram",
+        categoryLabel: "Instagram SMM",
+        name: "1.000 Instagram Likes (Mix Real)",
+        price: "Rp 5.000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Suntik likes foto atau Reels Instagram cepat masuk. Pastikan akun tidak privat.",
+        placeholder: "Masukkan Link Postingan / Reels Instagram",
+        label: "Link Postingan Instagram"
+      },
+      {
+        id: "ig-views-5k",
+        category: "instagram",
+        categoryLabel: "Instagram SMM",
+        name: "5.000 Instagram Views Reels/Video",
+        price: "Rp 3.500",
+        badge: "Super Hemat",
+        badgeClass: "badge-fast",
+        desc: "Menambah jumlah tayangan video Reels Instagram dalam hitungan menit.",
+        placeholder: "Masukkan Link Video / Reels Instagram",
+        label: "Link Reels / Video Instagram"
+      },
+      {
+        id: "ig-foll-500",
+        category: "instagram",
+        categoryLabel: "Instagram SMM",
+        name: "500 Instagram Followers (Refill 30 Hari)",
+        price: "Rp 15.000",
+        badge: "Bergaransi Refill",
+        badgeClass: "badge-refill",
+        desc: "Menambah pengikut profil Instagram dengan perlindungan garansi refill 30 hari.",
+        placeholder: "Masukkan Username Instagram tanpa @ (contoh: adrdigital.id)",
+        label: "Username Instagram Tujuan"
+      },
+      {
+        id: "ig-foll-1k",
+        category: "instagram",
+        categoryLabel: "Instagram SMM",
+        name: "1.000 Instagram Followers (Refill 30 Hari)",
+        price: "Rp 28.000",
+        badge: "Best Seller",
+        badgeClass: "badge-hot",
+        desc: "Tingkatkan kepercayaan akun bisnis atau personal dengan 1.000 followers bergaransi.",
+        placeholder: "Masukkan Username Instagram tanpa @ (contoh: adrdigital.id)",
+        label: "Username Instagram Tujuan"
+      },
 
-            // --- KATEGORI 2: APP PREMIUM ---
-            {
-                id: 'app-canva',
-                category: 'app',
-                platform: 'Canva Pro',
-                badge: 'Best Seller',
-                estimate: '5 – 15 Menit',
-                pastelTheme: 'sky',
-                title: 'Canva Pro 1 Bulan (Invite Email)',
-                description: 'Akses penuh semua elemen Pro, hapus background otomatis, dan template premium langsung di akun Canva pribadi Anda.',
-                warranty: 'Full Garansi 30 Hari',
-                targetLabel: 'Alamat Email Akun Canva Anda *',
-                targetPlaceholder: 'Contoh: emailkamu@gmail.com',
-                variants: [
-                    { name: 'Canva Pro 1 Bulan (Via Invite Tim)', price: 10000 },
-                    { name: 'Canva Pro 3 Bulan (Via Invite Tim)', price: 22000 },
-                    { name: 'Canva Pro 1 Tahun (Garansi)', price: 45000 }
-                ]
-            },
-            {
-                id: 'app-capcut',
-                category: 'app',
-                platform: 'CapCut Pro',
-                badge: 'Full Fitur Pro',
-                estimate: '5 – 20 Menit',
-                pastelTheme: 'indigo',
-                title: 'CapCut Pro 1 Bulan (Anti Watermark)',
-                description: 'Buka semua efek transisi, filter AI, auto-caption tanpa batas, dan ekspor kualitas 4K 60fps.',
-                warranty: 'Full Garansi 30 Hari',
-                targetLabel: 'Nama / Email Pembeli *',
-                targetPlaceholder: 'Contoh: Budi (budi@gmail.com)',
-                variants: [
-                    { name: 'CapCut Pro 1 Bulan (Sharing 1 Device)', price: 18000 },
-                    { name: 'CapCut Pro 1 Bulan (Private Akun)', price: 38000 }
-                ]
-            },
-            {
-                id: 'app-netflix',
-                category: 'app',
-                platform: 'Netflix UHD',
-                badge: '4K • Anti Hold',
-                estimate: '5 – 20 Menit',
-                pastelTheme: 'orange',
-                title: 'Netflix Premium 1 Bulan (1P1U)',
-                description: '1 Profil khusus 1 Pembeli (bisa pasang PIN profil sendiri). Kualitas 4K Ultra HD, lancar untuk Smart TV, HP, & Laptop.',
-                warranty: 'Full Garansi 30 Hari',
-                targetLabel: 'Nama / Jenis Perangkat yang Dipakai *',
-                targetPlaceholder: 'Contoh: Andi - HP Android / Smart TV',
-                variants: [
-                    { name: 'Netflix Sharing 1 Profil 1 User (1 Bulan)', price: 35000 },
-                    { name: 'Netflix Semi-Private (1 Bulan)', price: 48000 }
-                ]
-            },
-            {
-                id: 'app-spotify-yt',
-                category: 'app',
-                platform: 'Spotify & YT',
-                badge: 'Akun Sendiri',
-                estimate: '5 – 15 Menit',
-                pastelTheme: 'purple',
-                title: 'Spotify Premium & YouTube Premium',
-                description: 'Dengerin lagu offline tanpa iklan atau nonton YouTube tanpa iklan via undangan Family Plan resmi di akun pribadi.',
-                warranty: 'Full Garansi',
-                targetLabel: 'Email Akun Spotify / Google Anda *',
-                targetPlaceholder: 'Contoh: akunpribadi@gmail.com',
-                variants: [
-                    { name: 'Spotify Premium 1 Bulan (Invite Family)', price: 15000 },
-                    { name: 'YouTube Premium 1 Bulan (Invite Family)', price: 15000 }
-                ]
-            },
-            {
-                id: 'app-chatgpt',
-                category: 'app',
-                platform: 'ChatGPT Plus',
-                badge: 'GPT-4o & Pro',
-                estimate: '5 – 20 Menit',
-                pastelTheme: 'indigo',
-                title: 'ChatGPT Plus 1 Bulan',
-                description: 'Akses model AI terbaru, pembuatan gambar, analisis dokumen/PDF tanpa batas harian dengan kecepatan prioritas.',
-                warranty: 'Full Garansi 30 Hari',
-                targetLabel: 'Nama / Email Pembeli *',
-                targetPlaceholder: 'Contoh: Rina (rina@gmail.com)',
-                variants: [
-                    { name: 'ChatGPT Plus 1 Bulan (Sharing Workspace)', price: 55000 }
-                ]
-            },
+      // App Premium
+      {
+        id: "app-canva-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Canva Pro 1 Bulan (Invite Tim)",
+        price: "Rp 5.000",
+        badge: "Best Seller",
+        badgeClass: "badge-hot",
+        desc: "Akses penuh seluruh fitur Pro & hapus background langsung di akun email kamu sendiri.",
+        placeholder: "Masukkan Alamat Email Akun Canva kamu",
+        label: "Email Akun Canva Tujuan"
+      },
+      {
+        id: "app-capcut-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "CapCut Pro 1 Bulan (Private/Sharing)",
+        price: "Rp 15.000",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "Buka semua efek transisi, filter, dan auto-caption tanpa batas selama 30 hari.",
+        placeholder: "Masukkan Email / Nomor WhatsApp untuk pengiriman akun",
+        label: "Email / Kontak Penerima Akun"
+      },
+      {
+        id: "app-yt-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "YouTube Premium 1 Bulan (Invite Family)",
+        price: "Rp 12.000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Nonton bebas iklan & putar latar belakang (YouTube Music) di email pribadi kamu.",
+        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
+        label: "Email Google (Gmail) Tujuan"
+      },
+      {
+        id: "app-spotify-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Spotify Premium 1 Bulan (Invite Family)",
+        price: "Rp 14.000",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "Dengarkan musik tanpa iklan, bebas skip lagu, dan download offline di akun sendiri.",
+        placeholder: "Masukkan Email Akun Spotify kamu",
+        label: "Email Akun Spotify Tujuan"
+      },
+      {
+        id: "app-netflix-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium 1 Bulan (1P1U Sharing)",
+        price: "Rp 32.000",
+        badge: "4K UHD",
+        badgeClass: "badge-hot",
+        desc: "1 Profil khusus 1 Pembeli (bisa pasang PIN profil). Kualitas 4K Ultra HD anti limit.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
 
-            // --- KATEGORI 3: TOP-UP GAME & E-WALLET ---
-            {
-                id: 'topup-mlbb',
-                category: 'topup',
-                platform: 'Mobile Legends',
-                badge: 'Proses 1-5 Menit',
-                estimate: '1 – 5 Menit',
-                pastelTheme: 'indigo',
-                title: 'Diamond Mobile Legends (Fast)',
-                description: 'Top-up Diamond MLBB legal 100% aman. Cukup masukkan User ID dan Zone ID (Server) tanpa perlu login akun.',
-                warranty: 'Legal 100%',
-                targetLabel: 'User ID & Zone ID Server *',
-                targetPlaceholder: 'Contoh: 123456789 (2045)',
-                variants: [
-                    { name: '86 Diamonds MLBB', price: 22000 },
-                    { name: '172 Diamonds MLBB', price: 43000 },
-                    { name: '257 Diamonds MLBB', price: 64000 },
-                    { name: 'Weekly Diamond Pass (WDP)', price: 28000 }
-                ]
-            },
-            {
-                id: 'topup-ewallet',
-                category: 'topup',
-                platform: 'E-Wallet',
-                badge: 'Saldo Instan',
-                estimate: '1 – 5 Menit',
-                pastelTheme: 'sky',
-                title: 'Top-Up Saldo DANA / GoPay / OVO / ShopeePay',
-                description: 'Isi saldo dompet digital cepat tanpa perlu keluar rumah. Cocok untuk yang hanya punya saldo berbeda platform.',
-                warranty: 'Masuk Instan',
-                targetLabel: 'Nomor HP E-Wallet Tujuan *',
-                targetPlaceholder: 'Contoh: 081234567890 (a.n Budi)',
-                variants: [
-                    { name: 'Saldo E-Wallet Rp 20.000', price: 21500 },
-                    { name: 'Saldo E-Wallet Rp 50.000', price: 51500 },
-                    { name: 'Saldo E-Wallet Rp 100.000', price: 102000 }
-                ]
-            }
-        ];
+      // Top-Up & E-Wallet
+      {
+        id: "topup-ewallet",
+        category: "topup",
+        categoryLabel: "Top-Up & E-Wallet",
+        name: "Saldo DANA / GoPay / OVO / ShopeePay (Nominal Bebas)",
+        price: "Mulai Rp 10.000",
+        badge: "Proses Kilat",
+        badgeClass: "badge-fast",
+        desc: "Isi saldo dompet digital semua provider. Tulis nominal yang diinginkan di kolom catatan.",
+        placeholder: "Masukkan Nomor HP E-Wallet & Nama Penerima (contoh: DANA 0812xxx a.n Budi)",
+        label: "Nomor HP E-Wallet & Atas Nama"
+      },
+      {
+        id: "topup-game",
+        category: "topup",
+        categoryLabel: "Top-Up & E-Wallet",
+        name: "Diamond MLBB / Free Fire (Proses Kilat ID)",
+        price: "Mulai Rp 5.000",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond game proses cepat cukup pakai User ID. Tulis jumlah diamond di catatan.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      }
+    ];
 
-        // State Variables
-        let activeCategory = 'all';
-        let searchQuery = '';
-        let currentSelectedProduct = null;
+    // Application State
+    let activeCategory = "all";
+    let searchQuery = "";
+    let selectedProduct = PRODUCTS[0];
+    let selectedPayment = "QRIS All Payment";
 
-        // Format Rupiah Helper
-        function formatRupiah(number) {
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0
-            }).format(number);
-        }
+    // DOM References
+    const productGrid = document.getElementById("productGrid");
+    const emptyState = document.getElementById("emptyState");
+    const categoryTabs = document.getElementById("categoryTabs");
+    const searchInput = document.getElementById("searchInput");
 
-        // Pastel Theme Styling Helper (OnThi Decorative Accent Colors)
-        function getPastelThemeClasses(theme) {
-            const map = {
-                sky: {
-                    platformPill: 'bg-sky-50 text-onthi-accentBlue border-sky-200',
-                    badgePill: 'bg-onthi-softPurple text-onthi-link border-indigo-200'
-                },
-                purple: {
-                    platformPill: 'bg-onthi-softPurple text-onthi-accentPurple border-violet-200',
-                    badgePill: 'bg-lime-50 text-lime-700 border-lime-300'
-                },
-                indigo: {
-                    platformPill: 'bg-indigo-50 text-onthi-accentIndigo border-indigo-200',
-                    badgePill: 'bg-sky-50 text-onthi-accentBlue border-sky-200'
-                },
-                orange: {
-                    platformPill: 'bg-onthi-pastelOrange/60 text-onthi-accentOrange border-orange-200',
-                    badgePill: 'bg-onthi-pastelYellow/80 text-onthi-accentOrange border-amber-300'
-                }
-            };
-            return map[theme] || map.indigo;
-        }
+    const targetLabelText = document.getElementById("targetLabelText");
+    const targetInput = document.getElementById("targetInput");
+    const noteInput = document.getElementById("noteInput");
+    const paymentGrid = document.getElementById("paymentGrid");
 
-        // Render Store Branding from localStorage
-        function applyStoreConfig() {
-            document.getElementById('displayStoreName').textContent = storeConfig.storeName;
-            document.getElementById('footerStoreName').textContent = storeConfig.storeName;
-            document.title = `${storeConfig.storeName} — Layanan Sosmed, App Premium & Top-Up`;
+    const summaryCategory = document.getElementById("summaryCategory");
+    const summaryProduct = document.getElementById("summaryProduct");
+    const summaryPayment = document.getElementById("summaryPayment");
+    const summaryPrice = document.getElementById("summaryPrice");
 
-            const warningBanner = document.getElementById('adminWarningBanner');
-            if (storeConfig.waNumber === DEFAULT_CONFIG.waNumber) {
-                warningBanner.classList.remove('hidden');
-            } else {
-                warningBanner.classList.add('hidden');
-            }
-        }
+    const snkConfirmCheckbox = document.getElementById("snkConfirmCheckbox");
+    const formErrorBanner = document.getElementById("formErrorBanner");
+    const orderWaBtn = document.getElementById("orderWaBtn");
 
-        // Render Product Cards
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            const emptyState = document.getElementById('emptyState');
+    // Modal References
+    const snkModal = document.getElementById("snkModal");
+    const openSnkBtn = document.getElementById("openSnkBtn");
+    const openSnkInlineBtn = document.getElementById("openSnkInlineBtn");
+    const closeSnkBtn = document.getElementById("closeSnkBtn");
+    const confirmSnkModalBtn = document.getElementById("confirmSnkModalBtn");
 
-            const filtered = PRODUCTS.filter(item => {
-                const matchesCat = activeCategory === 'all' || item.category === activeCategory;
-                const q = searchQuery.toLowerCase();
-                const matchesSearch = 
-                    item.title.toLowerCase().includes(q) || 
-                    item.platform.toLowerCase().includes(q) ||
-                    item.description.toLowerCase().includes(q) ||
-                    item.variants.some(v => v.name.toLowerCase().includes(q));
-                return matchesCat && matchesSearch;
-            });
+    // Render Product Catalog
+    function renderProducts() {
+      const filtered = PRODUCTS.filter((item) => {
+        const matchesCategory = activeCategory === "all" || item.category === activeCategory;
+        const q = searchQuery.trim().toLowerCase();
+        const matchesSearch =
+          !q ||
+          item.name.toLowerCase().includes(q) ||
+          item.categoryLabel.toLowerCase().includes(q) ||
+          item.desc.toLowerCase().includes(q);
+        return matchesCategory && matchesSearch;
+      });
 
-            if (filtered.length === 0) {
-                grid.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
+      if (filtered.length === 0) {
+        productGrid.innerHTML = "";
+        emptyState.style.display = "block";
+        return;
+      }
 
-            emptyState.classList.add('hidden');
-            grid.innerHTML = filtered.map(product => {
-                const startingPrice = Math.min(...product.variants.map(v => v.price));
-                const themeStyle = getPastelThemeClasses(product.pastelTheme);
+      emptyState.style.display = "none";
+      productGrid.innerHTML = filtered
+        .map((item) => {
+          const isSelected = selectedProduct && selectedProduct.id === item.id;
+          return `
+            <article class="product-card ${isSelected ? "selected" : ""}" data-id="${item.id}">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="platform-label">${item.categoryLabel}</span>
+                  <span class="badge-tag ${item.badgeClass}">${item.badge}</span>
+                </div>
+                <h3 class="product-name">${item.name}</h3>
+                <p class="product-desc">${item.desc}</p>
+              </div>
+              <div class="card-bottom">
+                <span class="product-price">${item.price}</span>
+                <button type="button" class="btn-select-pkg">
+                  ${isSelected ? "Terpilih ✓" : "Pilih Paket"}
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
 
-                return `
-                    <div class="product-card p-5 flex flex-col justify-between">
-                        <div class="space-y-3.5">
-                            <!-- Top Platform & Warranty/Refill Badges -->
-                            <div class="flex items-center justify-between gap-2 flex-wrap">
-                                <span class="text-xs font-black px-3 py-1 rounded-[24px] border ${themeStyle.platformPill}">
-                                    ${product.platform}
-                                </span>
-                                <span class="text-[10px] font-black uppercase tracking-[0.8px] px-2.5 py-1 rounded-[24px] border ${themeStyle.badgePill}">
-                                    ${product.badge}
-                                </span>
-                            </div>
-
-                            <!-- Title & Description -->
-                            <div>
-                                <h3 class="text-lg font-black text-onthi-ink leading-snug">${product.title}</h3>
-                                <p class="text-[13px] text-onthi-body mt-1.5 leading-relaxed line-clamp-2">
-                                    ${product.description}
-                                </p>
-                            </div>
-
-                            <!-- Estimate Time Pill -->
-                            <div class="flex items-center gap-1.5 text-xs font-bold text-onthi-accentBlue">
-                                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                                <span>Estimasi Masuk: ${product.estimate}</span>
-                            </div>
-
-                            <!-- Preview of Variants -->
-                            <div class="space-y-1.5">
-                                ${product.variants.slice(0, 2).map(v => `
-                                    <div class="flex items-center justify-between text-xs px-3 py-2 rounded-[12px] bg-onthi-canvas border border-onthi-hairline">
-                                        <span class="text-onthi-ink font-semibold truncate pr-2">${v.name}</span>
-                                        <span class="font-black text-onthi-primary shrink-0">${formatRupiah(v.price)}</span>
-                                    </div>
-                                `).join('')}
-                                ${product.variants.length > 2 ? `
-                                    <p class="text-[11px] font-bold text-onthi-link pl-1">+${product.variants.length - 2} pilihan paket lainnya...</p>
-                                ` : ''}
-                            </div>
-                        </div>
-
-                        <!-- Bottom Price & Lime Green Action CTA -->
-                        <div class="pt-4 mt-4 border-t-2 border-onthi-hairline flex items-center justify-between gap-3">
-                            <div>
-                                <span class="block text-[10px] font-black uppercase tracking-[1px] text-onthi-muted">Mulai dari</span>
-                                <span class="text-lg font-black text-onthi-ink">${formatRupiah(startingPrice)}</span>
-                            </div>
-                            <button onclick="openCheckoutModal('${product.id}')" class="btn-lime px-4 py-2.5 text-xs sm:text-sm flex items-center gap-1.5 shrink-0">
-                                <span>Beli Sekarang</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            lucide.createIcons();
-        }
-
-        // Category Tab Listeners
-        document.querySelectorAll('.cat-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.cat-btn').forEach(b => {
-                    b.classList.remove('active', 'bg-onthi-primary', 'text-white', 'shadow-onthi-sm', 'font-black');
-                    b.classList.add('bg-white', 'text-onthi-ink', 'border-2', 'border-onthi-hairline', 'font-bold');
-                });
-                btn.classList.add('active', 'bg-onthi-primary', 'text-white', 'shadow-onthi-sm', 'font-black');
-                btn.classList.remove('bg-white', 'text-onthi-ink', 'border-2', 'border-onthi-hairline', 'font-bold');
-
-                activeCategory = btn.getAttribute('data-category');
-                renderProducts();
-            });
+      // Attach click listeners to rendered cards
+      document.querySelectorAll(".product-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const productId = card.getAttribute("data-id");
+          selectProduct(productId, true);
         });
+      });
+    }
 
-        // Search Listener
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            searchQuery = e.target.value;
-            renderProducts();
-        });
+    // Select a Product & Update Checkout Section
+    function selectProduct(productId, shouldScroll = false) {
+      const found = PRODUCTS.find((p) => p.id === productId);
+      if (!found) return;
 
-        function resetFilters() {
-            activeCategory = 'all';
-            searchQuery = '';
-            document.getElementById('searchInput').value = '';
-            document.querySelectorAll('.cat-btn').forEach(b => {
-                if (b.getAttribute('data-category') === 'all') {
-                    b.click();
-                }
-            });
-        }
+      selectedProduct = found;
+      summaryCategory.textContent = found.categoryLabel;
+      summaryProduct.textContent = found.name;
+      summaryPrice.textContent = found.price;
 
-        // =====================================================================
-        // CHECKOUT MODAL LOGIC
-        // =====================================================================
-        function renderPaymentMethods() {
-            const methods = [
-                { value: 'QRIS (All Payment / E-Wallet / M-Banking)', label: 'QRIS (Otomatis)', icon: 'qr-code', checked: true },
-                { value: 'DANA', label: 'DANA', icon: 'wallet', checked: false },
-                { value: 'GoPay / OVO / ShopeePay', label: 'GoPay / OVO', icon: 'smartphone', checked: false },
-                { value: 'Transfer Bank (BCA / SeaBank / BRI)', label: 'Transfer Bank', icon: 'landmark', checked: false }
-            ];
+      targetLabelText.textContent = found.label;
+      targetInput.placeholder = found.placeholder;
 
-            document.getElementById('paymentMethodsGrid').innerHTML = methods.map(m => `
-                <label class="cursor-pointer">
-                    <input type="radio" name="paymentMethod" value="${m.value}" ${m.checked ? 'checked' : ''} class="peer sr-only">
-                    <div class="p-3 rounded-[16px] bg-onthi-canvas border-2 border-onthi-hairline peer-checked:border-onthi-primary peer-checked:bg-onthi-softPurple text-xs font-black text-onthi-body peer-checked:text-onthi-link flex items-center gap-2 transition">
-                        <i data-lucide="${m.icon}" class="w-4 h-4 text-onthi-primary shrink-0"></i>
-                        <span>${m.label}</span>
-                    </div>
-                </label>
-            `).join('');
-        }
+      renderProducts();
 
-        function openCheckoutModal(productId) {
-            const product = PRODUCTS.find(p => p.id === productId);
-            if (!product) return;
-            currentSelectedProduct = product;
+      if (shouldScroll) {
+        const checkoutEl = document.getElementById("checkoutSection");
+        checkoutEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(() => {
+          targetInput.focus({ preventScroll: true });
+        }, 450);
+      }
+    }
 
-            const catNames = { smm: 'Suntik Sosmed', app: 'Aplikasi Premium', topup: 'Top-Up & E-Wallet' };
-            document.getElementById('modalCategoryBadge').textContent = `${catNames[product.category]} • ${product.platform}`;
-            document.getElementById('modalProductTitle').textContent = product.title;
+    // Category Tabs Event
+    categoryTabs.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tab-btn");
+      if (!btn) return;
 
-            const select = document.getElementById('variantSelect');
-            select.innerHTML = product.variants.map((v, idx) => `
-                <option value="${idx}">${v.name} — ${formatRupiah(v.price)}</option>
-            `).join('');
+      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeCategory = btn.getAttribute("data-category");
+      renderProducts();
+    });
 
-            document.getElementById('targetLabel').textContent = product.targetLabel;
-            const targetInput = document.getElementById('targetInput');
-            targetInput.value = '';
-            targetInput.placeholder = product.targetPlaceholder;
+    // Live Search Event
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderProducts();
+    });
 
-            const publicRow = document.getElementById('publicAccountCheckRow');
-            const publicCheck = document.getElementById('publicCheck');
-            const targetHelper = document.getElementById('targetHelper');
+    // Payment Method Selection Event
+    paymentGrid.addEventListener("click", (e) => {
+      const pill = e.target.closest(".pay-pill");
+      if (!pill) return;
 
-            if (product.category === 'smm') {
-                publicRow.classList.remove('hidden');
-                publicCheck.required = true;
-                publicCheck.checked = false;
-                targetHelper.classList.remove('hidden');
-            } else {
-                publicRow.classList.add('hidden');
-                publicCheck.required = false;
-                targetHelper.classList.add('hidden');
-            }
+      document.querySelectorAll(".pay-pill").forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      selectedPayment = pill.getAttribute("data-payment");
+      summaryPayment.textContent = selectedPayment;
+    });
 
-            const customCommentBox = document.getElementById('customCommentContainer');
-            const customCommentInput = document.getElementById('customCommentInput');
-            if (product.isCustomComment) {
-                customCommentBox.classList.remove('hidden');
-                customCommentInput.required = true;
-                customCommentInput.value = '';
-            } else {
-                customCommentBox.classList.add('hidden');
-                customCommentInput.required = false;
-            }
+    // Show Validation Error Helper
+    function showFormError(message) {
+      formErrorBanner.textContent = message;
+      formErrorBanner.style.display = "block";
+    }
 
-            document.getElementById('modalWarrantyBadge').innerHTML = `
-                <span class="px-3 py-1.5 rounded-[24px] bg-white text-onthi-accentBlue text-xs font-black border border-sky-200">
-                    ${product.warranty}
-                </span>
-            `;
-            document.getElementById('snkCheck').checked = false;
-            renderPaymentMethods();
-            updateSelectedPrice();
+    function hideFormError() {
+      formErrorBanner.style.display = "none";
+    }
 
-            const modal = document.getElementById('checkoutModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            lucide.createIcons();
-        }
+    // WhatsApp Order Receipt Generator
+    orderWaBtn.addEventListener("click", () => {
+      hideFormError();
 
-        function closeCheckoutModal() {
-            const modal = document.getElementById('checkoutModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
+      const targetValue = targetInput.value.trim();
+      const noteValue = noteInput.value.trim();
 
-        function updateSelectedPrice() {
-            if (!currentSelectedProduct) return;
-            const idx = document.getElementById('variantSelect').value;
-            const variant = currentSelectedProduct.variants[idx];
-            document.getElementById('modalTotalPrice').textContent = formatRupiah(variant.price);
-        }
+      if (!targetValue) {
+        showFormError("⚠️ Mohon isi Data Tujuan (Link Postingan / Username / Email / ID) terlebih dahulu.");
+        targetInput.focus();
+        return;
+      }
 
-        function buildFormattedOrderMessage() {
-            const idx = document.getElementById('variantSelect').value;
-            const variant = currentSelectedProduct.variants[idx];
-            const target = document.getElementById('targetInput').value.trim();
-            const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
-            const customComments = document.getElementById('customCommentInput').value.trim();
+      if (!snkConfirmCheckbox.checked) {
+        showFormError("⚠️ Silakan centang konfirmasi SNK bahwa akun tidak di-privat dan data tujuan sudah benar.");
+        snkConfirmCheckbox.focus();
+        return;
+      }
 
-            let msg = `Halo Admin *${storeConfig.storeName}*! 👋\nSaya ingin melakukan pemesanan:\n\n`;
-            msg += `📦 *Produk:* ${currentSelectedProduct.title}\n`;
-            msg += `✨ *Paket:* ${variant.name}\n`;
-            msg += `🎯 *Target/Akun:* ${target}\n`;
-            if (currentSelectedProduct.isCustomComment && customComments) {
-                msg += `💬 *Isi Komentar:*\n${customComments}\n`;
-            }
-            msg += `💳 *Pembayaran:* ${payment}\n`;
-            if (storeConfig.paymentInfo) {
-                msg += `🏦 *Tujuan Bayar:* ${storeConfig.paymentInfo}\n`;
-            }
-            msg += `💰 *Total Harga:* ${formatRupiah(variant.price)}\n\n`;
-            msg += `✅ _Saya sudah membaca SNK dan memastikan data target sudah benar._\n`;
-            if (storeConfig.footerNote) {
-                msg += `(${storeConfig.footerNote})`;
-            }
-            return msg;
-        }
+      const lines = [
+        `Halo Admin *${STORE_NAME}*, saya ingin order:`,
+        ``,
+        `• *Layanan:* ${selectedProduct.name}`,
+        `• *Harga:* ${selectedProduct.price}`,
+        `• *Data Tujuan:* ${targetValue}`,
+        noteValue ? `• *Catatan:* ${noteValue}` : null,
+        `• *Metode Bayar:* ${selectedPayment}`,
+        `• *Info Pembayaran:* ${PAYMENT_INFO}`,
+        ``,
+        `_${RECEIPT_NOTE}_`
+      ].filter(Boolean);
 
-        function handleOrderSubmit(e) {
-            e.preventDefault();
-            const message = buildFormattedOrderMessage();
-            const encodedMsg = encodeURIComponent(message);
-            const cleanPhone = storeConfig.waNumber.replace(/[^0-9]/g, '');
-            const waUrl = `https://wa.me/${cleanPhone}?text=${encodedMsg}`;
+      const messageText = encodeURIComponent(lines.join("\n"));
+      const waUrl = `https://wa.me/${ADMIN_WA}?text=${messageText}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+    });
 
-            showToast('Mengarahkan ke WhatsApp Admin...');
-            window.open(waUrl, '_blank');
-        }
+    // SNK Modal Controls
+    function openModal() {
+      snkModal.classList.add("open");
+    }
 
-        function copyOrderText() {
-            const target = document.getElementById('targetInput').value.trim();
-            if (!target) {
-                showToast('Isi data target/akun terlebih dahulu sebelum menyalin!');
-                document.getElementById('targetInput').focus();
-                return;
-            }
-            const message = buildFormattedOrderMessage();
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = message;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-            showToast('Format pesanan berhasil disalin ke clipboard!');
-        }
+    function closeModal() {
+      snkModal.classList.remove("open");
+    }
 
-        // =====================================================================
-        // SNK MODAL LOGIC
-        // =====================================================================
-        function openSnkModal() {
-            const modal = document.getElementById('snkModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            lucide.createIcons();
-        }
+    openSnkBtn.addEventListener("click", openModal);
+    openSnkInlineBtn.addEventListener("click", openModal);
+    closeSnkBtn.addEventListener("click", closeModal);
+    confirmSnkModalBtn.addEventListener("click", () => {
+      snkConfirmCheckbox.checked = true;
+      hideFormError();
+      closeModal();
+    });
 
-        function closeSnkModal() {
-            const modal = document.getElementById('snkModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
+    snkModal.addEventListener("click", (e) => {
+      if (e.target === snkModal) closeModal();
+    });
 
-        // =====================================================================
-        // STORE OWNER SETTINGS MODAL LOGIC
-        // =====================================================================
-        function openSettingsModal() {
-            document.getElementById('settingStoreName').value = storeConfig.storeName;
-            document.getElementById('settingWaNumber').value = storeConfig.waNumber;
-            document.getElementById('settingPaymentInfo').value = storeConfig.paymentInfo || '';
-            document.getElementById('settingFooterNote').value = storeConfig.footerNote || '';
-
-            const modal = document.getElementById('settingsModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            lucide.createIcons();
-        }
-
-        function closeSettingsModal() {
-            const modal = document.getElementById('settingsModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function saveStoreSettings(e) {
-            e.preventDefault();
-            let wa = document.getElementById('settingWaNumber').value.trim().replace(/[^0-9]/g, '');
-            if (wa.startsWith('08')) {
-                wa = '62' + wa.slice(1);
-            }
-
-            storeConfig = {
-                storeName: document.getElementById('settingStoreName').value.trim() || DEFAULT_CONFIG.storeName,
-                waNumber: wa || DEFAULT_CONFIG.waNumber,
-                paymentInfo: document.getElementById('settingPaymentInfo').value.trim(),
-                footerNote: document.getElementById('settingFooterNote').value.trim()
-            };
-
-            localStorage.setItem('nexusStoreConfigOnthi', JSON.stringify(storeConfig));
-            applyStoreConfig();
-            closeSettingsModal();
-            showToast('Pengaturan toko & WhatsApp berhasil disimpan!');
-        }
-
-        function resetStoreSettings() {
-            storeConfig = { ...DEFAULT_CONFIG };
-            localStorage.removeItem('nexusStoreConfigOnthi');
-            applyStoreConfig();
-            closeSettingsModal();
-            showToast('Pengaturan toko dikembalikan ke bawaan.');
-        }
-
-        // Toast Notification Helper
-        function showToast(text) {
-            const toast = document.getElementById('toastNotification');
-            document.getElementById('toastMessage').textContent = text;
-            toast.classList.remove('hidden');
-            toast.classList.add('flex');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-                toast.classList.remove('flex');
-            }, 3200);
-        }
-
-        // Close modals on backdrop click
-        window.addEventListener('click', (e) => {
-            if (e.target.id === 'checkoutModal') closeCheckoutModal();
-            if (e.target.id === 'snkModal') closeSnkModal();
-            if (e.target.id === 'settingsModal') closeSettingsModal();
-        });
-
-        // Initial Boot
-        window.addEventListener('DOMContentLoaded', () => {
-            applyStoreConfig();
-            renderProducts();
-            lucide.createIcons();
-        });
-    </script>
+    // Initialize App
+    renderProducts();
+    selectProduct(PRODUCTS[0].id, false);
+  </script>
 </body>
 </html>
