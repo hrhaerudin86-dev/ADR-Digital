@@ -928,6 +928,21 @@
     }
     .wa-float:hover { background-color: #1EBE5B; }
 
+
+    /* Gambar produk */
+    .product-img {
+      height: 110px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #EDE9FE, #F5F3FF);
+      border: 1px solid var(--color-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .product-img img { width: 64px; height: 64px; object-fit: contain; }
+    .product-img span { font-size: 48px; line-height: 1; }
+
     /* Best seller + testimonials */
     .best-seller-grid {
       display: grid;
@@ -1162,17 +1177,17 @@
         <div class="hero-panels">
           <div class="hero-panel">
             <strong>APLIKASI PREMIUM</strong>
-            Canva mulai Rp5.000/bln<br />
-            CapCut Rp15.000/bln<br />
-            Netflix Rp32.000/bln<br />
-            Spotify Rp14.000/bln
+            Canva mulai Rp1.550/bln<br />
+            CapCut mulai Rp4.650<br />
+            Netflix mulai Rp15.700/bln<br />
+            Spotify mulai Rp14.200/bln
           </div>
           <div class="hero-panel">
             <strong>SOSIAL MEDIA</strong>
-            TikTok Views mulai Rp3.000<br />
-            TikTok Followers mulai Rp18.000<br />
-            IG Likes mulai Rp5.000<br />
-            IG Followers mulai Rp15.000
+            TikTok Views mulai Rp900<br />
+            TikTok Followers mulai Rp9.600<br />
+            IG Likes mulai Rp2.100<br />
+            IG Followers mulai Rp2.950
           </div>
         </div>
       </div>
@@ -1223,6 +1238,11 @@
           <button type="button" class="tab-btn active" data-category="all">Semua</button>
           <button type="button" class="tab-btn" data-category="tiktok">TikTok SMM</button>
           <button type="button" class="tab-btn" data-category="instagram">Instagram SMM</button>
+          <button type="button" class="tab-btn" data-category="youtube">YouTube</button>
+          <button type="button" class="tab-btn" data-category="facebook">Facebook</button>
+          <button type="button" class="tab-btn" data-category="twitter">X / Twitter</button>
+          <button type="button" class="tab-btn" data-category="telegram">Telegram</button>
+          <button type="button" class="tab-btn" data-category="shopee">Shopee</button>
           <button type="button" class="tab-btn" data-category="app">App Premium</button>
           <button type="button" class="tab-btn" data-category="topup">Top-Up &amp; E-Wallet</button>
         </div>
@@ -1325,7 +1345,7 @@
             </div>
             <div class="summary-total">
               <span class="summary-total-label">Total Harga</span>
-              <span class="summary-total-value" id="summaryPrice">Rp 3.000</span>
+              <span class="summary-total-value" id="summaryPrice">Rp 900</span>
             </div>
           </div>
 
@@ -1462,9 +1482,10 @@
       {
         id: "tt-views-10k",
         category: "tiktok",
+        img: "https://cdn.simpleicons.org/tiktok/000000",
         categoryLabel: "TikTok SMM",
         name: "10.000 TikTok Views (Super Cepat)",
-        price: "Rp 3.000",
+        price: "Rp 900",
         badge: "Proses Cepat",
         badgeClass: "badge-fast",
         desc: "Menambah tayangan video TikTok secara instan. Cukup kirim link video.",
@@ -1474,9 +1495,10 @@
       {
         id: "tt-likes-1k",
         category: "tiktok",
+        img: "https://cdn.simpleicons.org/tiktok/000000",
         categoryLabel: "TikTok SMM",
         name: "1.000 TikTok Likes (Stabil)",
-        price: "Rp 6.000",
+        price: "Rp 1.250",
         badge: "Proses Cepat",
         badgeClass: "badge-fast",
         desc: "Meningkatkan jumlah suka pada postingan video TikTok dengan kualitas stabil.",
@@ -1486,30 +1508,33 @@
       {
         id: "tt-foll-500",
         category: "tiktok",
+        img: "https://cdn.simpleicons.org/tiktok/000000",
         categoryLabel: "TikTok SMM",
-        name: "500 TikTok Followers (Bergaransi Refill 30 Hari)",
-        price: "Rp 18.000",
-        badge: "Bergaransi Refill",
-        badgeClass: "badge-refill",
-        desc: "Followers berkualitas dengan garansi isi ulang 30 hari jika terjadi penurunan.",
+        name: "500 TikTok Followers",
+        price: "Rp 9.600",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Followers TikTok proses cepat. Layanan termurah tanpa garansi refill.",
         placeholder: "Masukkan Username atau Link Profil TikTok (contoh: @username)",
         label: "Username / Link Profil TikTok"
       },
       {
         id: "tt-foll-1k",
         category: "tiktok",
+        img: "https://cdn.simpleicons.org/tiktok/000000",
         categoryLabel: "TikTok SMM",
-        name: "1.000 TikTok Followers (Bergaransi Refill 30 Hari)",
-        price: "Rp 34.000",
+        name: "1.000 TikTok Followers",
+        price: "Rp 19.150",
         badge: "Best Seller",
         badgeClass: "badge-hot",
-        desc: "Paket favorit untuk syarat live streaming TikTok. Dilengkapi garansi refill 30 hari.",
+        desc: "Paket favorit untuk syarat live streaming TikTok. Layanan termurah tanpa garansi refill.",
         placeholder: "Masukkan Username atau Link Profil TikTok (contoh: @username)",
         label: "Username / Link Profil TikTok"
       },
       {
         id: "tt-komen-20",
         category: "tiktok",
+        img: "https://cdn.simpleicons.org/tiktok/000000",
         categoryLabel: "TikTok SMM",
         name: "20 Komentar Custom TikTok (Akun Indo)",
         price: "Rp 10.000",
@@ -1524,9 +1549,10 @@
       {
         id: "ig-likes-1k",
         category: "instagram",
+        img: "https://cdn.simpleicons.org/instagram/E4405F",
         categoryLabel: "Instagram SMM",
         name: "1.000 Instagram Likes (Mix Real)",
-        price: "Rp 5.000",
+        price: "Rp 2.100",
         badge: "Proses Cepat",
         badgeClass: "badge-fast",
         desc: "Suntik likes foto atau Reels Instagram cepat masuk. Pastikan akun tidak privat.",
@@ -1536,9 +1562,10 @@
       {
         id: "ig-views-5k",
         category: "instagram",
+        img: "https://cdn.simpleicons.org/instagram/E4405F",
         categoryLabel: "Instagram SMM",
         name: "5.000 Instagram Views Reels/Video",
-        price: "Rp 3.500",
+        price: "Rp 100",
         badge: "Super Hemat",
         badgeClass: "badge-fast",
         desc: "Menambah jumlah tayangan video Reels Instagram dalam hitungan menit.",
@@ -1548,88 +1575,556 @@
       {
         id: "ig-foll-500",
         category: "instagram",
+        img: "https://cdn.simpleicons.org/instagram/E4405F",
         categoryLabel: "Instagram SMM",
-        name: "500 Instagram Followers (Refill 30 Hari)",
-        price: "Rp 15.000",
-        badge: "Bergaransi Refill",
-        badgeClass: "badge-refill",
-        desc: "Menambah pengikut profil Instagram dengan perlindungan garansi refill 30 hari.",
+        name: "500 Instagram Followers",
+        price: "Rp 2.950",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Menambah pengikut profil Instagram. Layanan termurah tanpa garansi refill.",
         placeholder: "Masukkan Username Instagram tanpa @ (contoh: adrdigital.id)",
         label: "Username Instagram Tujuan"
       },
       {
         id: "ig-foll-1k",
         category: "instagram",
+        img: "https://cdn.simpleicons.org/instagram/E4405F",
         categoryLabel: "Instagram SMM",
-        name: "1.000 Instagram Followers (Refill 30 Hari)",
-        price: "Rp 28.000",
+        name: "1.000 Instagram Followers",
+        price: "Rp 5.900",
         badge: "Best Seller",
         badgeClass: "badge-hot",
-        desc: "Tingkatkan kepercayaan akun bisnis atau personal dengan 1.000 followers bergaransi.",
+        desc: "Tingkatkan kepercayaan akun bisnis atau personal dengan 1.000 followers. Layanan termurah tanpa garansi refill.",
         placeholder: "Masukkan Username Instagram tanpa @ (contoh: adrdigital.id)",
         label: "Username Instagram Tujuan"
       },
 
-      // App Premium
+      // YouTube
       {
-        id: "app-canva-1m",
+        id: "yt-subs-1k",
+        category: "youtube",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        categoryLabel: "YouTube",
+        name: "1.000 YouTube Subscribers",
+        price: "Rp 1.900",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Subscriber YouTube, layanan termurah tanpa refill. Cukup kirim link channel.",
+        placeholder: "Masukkan Link Channel YouTube",
+        label: "Link Channel YouTube"
+      },
+      {
+        id: "yt-views-1k",
+        category: "youtube",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        categoryLabel: "YouTube",
+        name: "1.000 YouTube Views",
+        price: "Rp 10.850",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Views YouTube untuk video / Shorts. Layanan termurah tanpa refill.",
+        placeholder: "Masukkan Link Video YouTube",
+        label: "Link Video YouTube"
+      },
+      // Facebook
+      {
+        id: "fb-foll-1k",
+        category: "facebook",
+        img: "https://cdn.simpleicons.org/facebook/1877F2",
+        categoryLabel: "Facebook",
+        name: "1.000 Facebook Followers",
+        price: "Rp 2.850",
+        badge: "Refill 30 Hari",
+        badgeClass: "badge-refill",
+        desc: "Followers Facebook profil / halaman, refill 30 hari.",
+        placeholder: "Masukkan Link Profil / Halaman Facebook",
+        label: "Link Facebook Tujuan"
+      },
+      {
+        id: "fb-likes-1k",
+        category: "facebook",
+        img: "https://cdn.simpleicons.org/facebook/1877F2",
+        categoryLabel: "Facebook",
+        name: "1.000 Facebook Likes / Reactions",
+        price: "Rp 2.150",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Likes / reactions postingan Facebook. Layanan termurah tanpa refill.",
+        placeholder: "Masukkan Link Postingan Facebook",
+        label: "Link Postingan Facebook"
+      },
+      // X / Twitter
+      {
+        id: "x-foll-1k",
+        category: "twitter",
+        img: "https://cdn.simpleicons.org/x/000000",
+        categoryLabel: "X / Twitter",
+        name: "1.000 X / Twitter Followers",
+        price: "Rp 10.450",
+        badge: "Refill 7 Hari",
+        badgeClass: "badge-refill",
+        desc: "Followers X / Twitter, refill 7 hari.",
+        placeholder: "Masukkan Username / Link Profil X",
+        label: "Username / Link X"
+      },
+      {
+        id: "x-views-1k",
+        category: "twitter",
+        img: "https://cdn.simpleicons.org/x/000000",
+        categoryLabel: "X / Twitter",
+        name: "1.000 X / Twitter Views",
+        price: "Rp 50",
+        badge: "Super Hemat",
+        badgeClass: "badge-fast",
+        desc: "Views + impressions tweet X. Layanan termurah.",
+        placeholder: "Masukkan Link Tweet",
+        label: "Link Tweet"
+      },
+      // Telegram
+      {
+        id: "tg-members-1k",
+        category: "telegram",
+        img: "https://cdn.simpleicons.org/telegram/26A5E4",
+        categoryLabel: "Telegram",
+        name: "1.000 Telegram Members",
+        price: "Rp 2.100",
+        badge: "Refill 3 Hari",
+        badgeClass: "badge-refill",
+        desc: "Member grup / channel Telegram, refill 3 hari.",
+        placeholder: "Masukkan Link Grup / Channel Telegram (t.me/...)",
+        label: "Link Telegram"
+      },
+      {
+        id: "tg-views-1k",
+        category: "telegram",
+        img: "https://cdn.simpleicons.org/telegram/26A5E4",
+        categoryLabel: "Telegram",
+        name: "1.000 Telegram Post Views",
+        price: "Rp 100",
+        badge: "Super Hemat",
+        badgeClass: "badge-fast",
+        desc: "Views postingan Telegram. Layanan termurah.",
+        placeholder: "Masukkan Link Postingan Telegram",
+        label: "Link Postingan Telegram"
+      },
+      // Shopee
+      {
+        id: "shopee-foll-1k",
+        category: "shopee",
+        img: "https://cdn.simpleicons.org/shopee/EE4D2D",
+        categoryLabel: "Shopee",
+        name: "1.000 Shopee Followers",
+        price: "Rp 9.800",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Followers toko Shopee Indonesia.",
+        placeholder: "Masukkan Link / Username Toko Shopee",
+        label: "Link Toko Shopee"
+      },
+      {
+        id: "shopee-likes-1k",
+        category: "shopee",
+        img: "https://cdn.simpleicons.org/shopee/EE4D2D",
+        categoryLabel: "Shopee",
+        name: "1.000 Shopee Produk Likes",
+        price: "Rp 8.600",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Likes produk Shopee, non-drop.",
+        placeholder: "Masukkan Link Produk Shopee",
+        label: "Link Produk Shopee"
+      },
+
+      // App Premium — harga SufPayment (Basic, 21 Nov 2026) + 10%
+      {
+        id: "app-canva-anggota-1m",
         category: "app",
         categoryLabel: "App Premium",
-        name: "Canva Pro 1 Bulan (Invite Tim)",
-        price: "Rp 5.000",
+        name: "Canva Pro Anggota 1 Bulan (Garansi 1 Bulan)",
+        price: "Rp 1.550",
+        img: "https://cdn.simpleicons.org/canva/00C4CC",
         badge: "Best Seller",
         badgeClass: "badge-hot",
-        desc: "Akses penuh seluruh fitur Pro & hapus background langsung di akun email kamu sendiri.",
+        desc: "Canva Pro tipe Anggota, garansi 1 bulan. Paling murah.",
         placeholder: "Masukkan Alamat Email Akun Canva kamu",
         label: "Email Akun Canva Tujuan"
       },
       {
-        id: "app-capcut-1m",
+        id: "app-canva-desainer-1m",
         category: "app",
         categoryLabel: "App Premium",
-        name: "CapCut Pro 1 Bulan (Private/Sharing)",
-        price: "Rp 15.000",
+        name: "Canva Pro Desainer 1 Bulan (Garansi 1 Bulan)",
+        price: "Rp 2.700",
+        img: "https://cdn.simpleicons.org/canva/00C4CC",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Canva Pro tipe Desainer, garansi 1 bulan.",
+        placeholder: "Masukkan Alamat Email Akun Canva kamu",
+        label: "Email Akun Canva Tujuan"
+      },
+      {
+        id: "app-canva-designer-v2-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Canva Pro Designer 1 Bulan (Via Invite, Garansi)",
+        price: "Rp 6.850",
+        img: "https://cdn.simpleicons.org/canva/00C4CC",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Canva Pro Designer via invite, garansi.",
+        placeholder: "Masukkan Alamat Email Akun Canva kamu",
+        label: "Email Akun Canva Tujuan"
+      },
+      {
+        id: "app-canva-owner-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Canva Pro Owner 1 Bulan (Head Team, Private)",
+        price: "Rp 8.250",
+        img: "https://cdn.simpleicons.org/canva/00C4CC",
+        badge: "Private",
+        badgeClass: "badge-fast",
+        desc: "Canva Pro Owner / Head Team, private 1 bulan.",
+        placeholder: "Masukkan Alamat Email Akun Canva kamu",
+        label: "Email Akun Canva Tujuan"
+      },
+      {
+        id: "app-canva-private-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Canva Pro Designer Private 1 Bulan (Owner Team, Full Garansi)",
+        price: "Rp 11.450",
+        img: "https://cdn.simpleicons.org/canva/00C4CC",
         badge: "Full Garansi",
         badgeClass: "badge-refill",
-        desc: "Buka semua efek transisi, filter, dan auto-caption tanpa batas selama 30 hari.",
+        desc: "Canva Pro Designer private, owner team, full garansi.",
+        placeholder: "Masukkan Alamat Email Akun Canva kamu",
+        label: "Email Akun Canva Tujuan"
+      },
+      {
+        id: "app-canva-owners-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Canva Pro Owners Team 1 Bulan (Bisa Invite, Full Garansi)",
+        price: "Rp 12.550",
+        img: "https://cdn.simpleicons.org/canva/00C4CC",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "Canva Pro Owners Team, bisa invite, full garansi.",
+        placeholder: "Masukkan Alamat Email Akun Canva kamu",
+        label: "Email Akun Canva Tujuan"
+      },
+      {
+        id: "app-capcut-7d",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "CapCut Pro Private 7 Hari (Garansi 5 Hari)",
+        price: "Rp 4.650",
+        img: "https://cdn.simpleicons.org/capcut/000000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "CapCut Pro private 7 hari, garansi 5 hari.",
         placeholder: "Masukkan Email / Nomor WhatsApp untuk pengiriman akun",
         label: "Email / Kontak Penerima Akun"
       },
       {
-        id: "app-yt-1m",
+        id: "app-capcut-30d",
         category: "app",
         categoryLabel: "App Premium",
-        name: "YouTube Premium 1 Bulan (Invite Family)",
-        price: "Rp 12.000",
-        badge: "Proses Cepat",
-        badgeClass: "badge-fast",
-        desc: "Nonton bebas iklan & putar latar belakang (YouTube Music) di email pribadi kamu.",
-        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
-        label: "Email Google (Gmail) Tujuan"
+        name: "CapCut Pro Private 30 Hari (Garansi 25 Hari, Reg Indonesia)",
+        price: "Rp 29.050",
+        img: "https://cdn.simpleicons.org/capcut/000000",
+        badge: "Best Seller",
+        badgeClass: "badge-hot",
+        desc: "CapCut Pro private 30 hari, garansi 25 hari, region Indonesia.",
+        placeholder: "Masukkan Email / Nomor WhatsApp untuk pengiriman akun",
+        label: "Email / Kontak Penerima Akun"
       },
       {
-        id: "app-spotify-1m",
+        id: "app-capcut-35d",
         category: "app",
         categoryLabel: "App Premium",
-        name: "Spotify Premium 1 Bulan (Invite Family)",
-        price: "Rp 14.000",
+        name: "CapCut Pro Private 35 Hari",
+        price: "Rp 43.900",
+        img: "https://cdn.simpleicons.org/capcut/000000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "CapCut Pro private 35 hari.",
+        placeholder: "Masukkan Email / Nomor WhatsApp untuk pengiriman akun",
+        label: "Email / Kontak Penerima Akun"
+      },
+      {
+        id: "app-capcut-35d-antibf",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "CapCut Pro Private 35 Hari (Anti BF)",
+        price: "Rp 46.100",
+        img: "https://cdn.simpleicons.org/capcut/000000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "CapCut Pro private 35 hari, anti BF.",
+        placeholder: "Masukkan Email / Nomor WhatsApp untuk pengiriman akun",
+        label: "Email / Kontak Penerima Akun"
+      },
+      {
+        id: "app-netflix-sharing-1p-14d",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium Sharing 1 Profile 30 Hari (Garansi 14 Hari)",
+        price: "Rp 15.700",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Netflix 1 profile sharing 30 hari, garansi 14 hari, via link login.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-sharing-1p-28d",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium Sharing 1 Profile 30 Hari (Garansi 28 Hari)",
+        price: "Rp 20.900",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
         badge: "Full Garansi",
         badgeClass: "badge-refill",
-        desc: "Dengarkan musik tanpa iklan, bebas skip lagu, dan download offline di akun sendiri.",
+        desc: "Netflix 1 profile sharing 30 hari, garansi 28 hari, via link login.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-tv-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix TV 1 Bulan (Garansi 20 Hari)",
+        price: "Rp 18.600",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Netflix TV 1 bulan, garansi 20 hari.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-1p-v2",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium 1 Bulan (1 Profile, 1 Device, Full Garansi)",
+        price: "Rp 31.250",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "Netflix 1 bulan, 1 profile 1 device, full garansi.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-sharing-35p-14d",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium Sharing 3-5 Profile 30 Hari (Garansi 14 Hari)",
+        price: "Rp 34.850",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Netflix sharing 3-5 profile 30 hari, garansi 14 hari, kode redeem.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-semiprivate-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium Semi Private 1 Bulan (Garansi 15 Hari)",
+        price: "Rp 37.850",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Netflix semi private 1 bulan, garansi 15 hari.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-vvip-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium 1 Bulan (1 Profile 1 Orang, VVIP, Garansi 20H)",
+        price: "Rp 46.650",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "VVIP",
+        badgeClass: "badge-hot",
+        desc: "Netflix 1 bulan, 1 profile 1 orang, VVIP, garansi 20 jam.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-sharing-35p-28d",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium Sharing 3-5 Profile 30 Hari (Garansi 28 Hari)",
+        price: "Rp 52.250",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "Netflix sharing 3-5 profile 30 hari, garansi 28 hari, kode redeem.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-owner-15d",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium Owner Team 1 Bulan (Garansi 15 Hari)",
+        price: "Rp 168.850",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Private",
+        badgeClass: "badge-fast",
+        desc: "Netflix owner team 1 bulan, garansi 15 hari.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-netflix-owner-full",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Netflix Premium Owner Team 1 Bulan (Full Garansi)",
+        price: "Rp 191.300",
+        img: "https://cdn.simpleicons.org/netflix/E50914",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "Netflix owner team 1 bulan, full garansi.",
+        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
+        label: "Nama & Perangkat Pemakai"
+      },
+      {
+        id: "app-spotify-no-garansi-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Spotify Premium Individual 1 Bulan (No Garansi)",
+        price: "Rp 14.200",
+        img: "https://cdn.simpleicons.org/spotify/1DB954",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Spotify Premium individual 1 bulan, no garansi.",
         placeholder: "Masukkan Email Akun Spotify kamu",
         label: "Email Akun Spotify Tujuan"
       },
       {
-        id: "app-netflix-1m",
+        id: "app-spotify-famplan-1m",
         category: "app",
         categoryLabel: "App Premium",
-        name: "Netflix Premium 1 Bulan (1P1U Sharing)",
-        price: "Rp 32.000",
-        badge: "4K UHD",
+        name: "Spotify Premium FamPlan 1 Bulan (Private)",
+        price: "Rp 22.450",
+        img: "https://cdn.simpleicons.org/spotify/1DB954",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "Spotify Premium FamPlan 1 bulan, private.",
+        placeholder: "Masukkan Email Akun Spotify kamu",
+        label: "Email Akun Spotify Tujuan"
+      },
+      {
+        id: "app-spotify-email-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Spotify Premium 1 Bulan (Email Anda, Full Garansi)",
+        price: "Rp 25.100",
+        img: "https://cdn.simpleicons.org/spotify/1DB954",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "Spotify Premium 1 bulan pakai email Anda, full garansi.",
+        placeholder: "Masukkan Email Akun Spotify kamu",
+        label: "Email Akun Spotify Tujuan"
+      },
+      {
+        id: "app-spotify-individual-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "Spotify Premium Individual 1 Bulan (Private, Full Garansi)",
+        price: "Rp 27.950",
+        img: "https://cdn.simpleicons.org/spotify/1DB954",
+        badge: "Best Seller",
         badgeClass: "badge-hot",
-        desc: "1 Profil khusus 1 Pembeli (bisa pasang PIN profil). Kualitas 4K Ultra HD anti limit.",
-        placeholder: "Masukkan Nama Profil & Perangkat (contoh: Andi - HP Android)",
-        label: "Nama & Perangkat Pemakai"
+        desc: "Spotify Premium individual 1 bulan, private, full garansi.",
+        placeholder: "Masukkan Email Akun Spotify kamu",
+        label: "Email Akun Spotify Tujuan"
+      },
+      {
+        id: "app-yt-invite-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "YouTube Premium Via Invite Family 1 Bulan",
+        price: "Rp 6.600",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "YouTube Premium via invite family 1 bulan.",
+        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
+        label: "Email Google (Gmail) Tujuan"
+      },
+      {
+        id: "app-yt-famhead-anda-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "YouTube Premium FamHead 1 Bulan (Akun Anda, Private)",
+        price: "Rp 9.350",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        badge: "Private",
+        badgeClass: "badge-fast",
+        desc: "YouTube Premium FamHead 1 bulan, pakai akun Anda.",
+        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
+        label: "Email Google (Gmail) Tujuan"
+      },
+      {
+        id: "app-yt-indplan-anda-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "YouTube Premium IndPlan 1 Bulan (Akun Anda, Full Garansi 20H)",
+        price: "Rp 9.350",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "YouTube Premium IndPlan 1 bulan, pakai akun Anda, full garansi 20 jam.",
+        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
+        label: "Email Google (Gmail) Tujuan"
+      },
+      {
+        id: "app-yt-family-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "YouTube Premium Anggota FamilyPlan 1 Bulan (Invite, 1x Garansi)",
+        price: "Rp 12.800",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        badge: "Proses Cepat",
+        badgeClass: "badge-fast",
+        desc: "YouTube Premium anggota FamilyPlan 1 bulan, invite, 1x garansi.",
+        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
+        label: "Email Google (Gmail) Tujuan"
+      },
+      {
+        id: "app-yt-indplan-kami-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "YouTube Premium IndPlan 1 Bulan (Akun Kami, Full Garansi 20H)",
+        price: "Rp 17.600",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        badge: "Full Garansi",
+        badgeClass: "badge-refill",
+        desc: "YouTube Premium IndPlan 1 bulan, pakai akun kami, full garansi 20 jam.",
+        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
+        label: "Email Google (Gmail) Tujuan"
+      },
+      {
+        id: "app-yt-famhead-kami-1m",
+        category: "app",
+        categoryLabel: "App Premium",
+        name: "YouTube Premium FamHead 1 Bulan (Akun Kami, Private)",
+        price: "Rp 20.250",
+        img: "https://cdn.simpleicons.org/youtube/FF0000",
+        badge: "Private",
+        badgeClass: "badge-fast",
+        desc: "YouTube Premium FamHead 1 bulan, pakai akun kami.",
+        placeholder: "Masukkan Alamat Email Google (Gmail) yang belum pernah join family",
+        label: "Email Google (Gmail) Tujuan"
       },
 
       // Top-Up & E-Wallet
@@ -1639,6 +2134,7 @@
         categoryLabel: "Top-Up & E-Wallet",
         name: "Saldo DANA / GoPay / OVO / ShopeePay (Nominal Bebas)",
         price: "Mulai Rp 10.000",
+        emoji: "💳",
         badge: "Proses Kilat",
         badgeClass: "badge-fast",
         desc: "Isi saldo dompet digital semua provider. Tulis nominal yang diinginkan di kolom catatan.",
@@ -1646,17 +2142,291 @@
         label: "Nomor HP E-Wallet & Atas Nama"
       },
       {
-        id: "topup-game",
+        id: "topup-mlbb-3d",
         category: "topup",
-        categoryLabel: "Top-Up & E-Wallet",
-        name: "Diamond MLBB / Free Fire (Proses Kilat ID)",
-        price: "Mulai Rp 5.000",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 3 Diamond",
+        price: "Rp 1.200",
+        emoji: "💎",
         badge: "Legal 100%",
         badgeClass: "badge-refill",
-        desc: "Top-up diamond game proses cepat cukup pakai User ID. Tulis jumlah diamond di catatan.",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
         placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
         label: "User ID & Server Game"
-      }
+      },
+      {
+        id: "topup-mlbb-5d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 5 Diamond",
+        price: "Rp 1.900",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-10d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 10 Diamond",
+        price: "Rp 3.800",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-28d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 28 Diamond",
+        price: "Rp 10.100",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-44d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 44 Diamond",
+        price: "Rp 15.150",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-86d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 86 Diamond",
+        price: "Rp 26.650",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-172d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 172 Diamond",
+        price: "Rp 55.300",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-257d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 257 Diamond",
+        price: "Rp 81.750",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-706d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 706 Diamond",
+        price: "Rp 214.650",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-2195d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 2195 Diamond",
+        price: "Rp 647.750",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-3688d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB 3688 Diamond",
+        price: "Rp 1.054.500",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-mlbb-weekly",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "MLBB Weekly Diamond Pass",
+        price: "Rp 34.200",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Mobile Legends, proses cepat pakai User ID + Server.",
+        placeholder: "Masukkan User ID + Server Game (contoh: MLBB 12345678 (2045))",
+        label: "User ID & Server Game"
+      },
+      {
+        id: "topup-ff-5d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 5 Diamond",
+        price: "Rp 1.000",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-10d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 10 Diamond",
+        price: "Rp 1.750",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-25d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 25 Diamond",
+        price: "Rp 4.350",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-50d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 50 Diamond",
+        price: "Rp 6.950",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-100d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 100 Diamond",
+        price: "Rp 15.400",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-140d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 140 Diamond",
+        price: "Rp 18.900",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-355d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 355 Diamond",
+        price: "Rp 47.550",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-720d",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire 720 Diamond",
+        price: "Rp 94.250",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-member-week",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire Membership Mingguan",
+        price: "Rp 32.100",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
+      {
+        id: "topup-ff-member-month",
+        category: "topup",
+        categoryLabel: "Top-Up Game",
+        name: "Free Fire Membership Bulanan",
+        price: "Rp 96.200",
+        emoji: "💎",
+        badge: "Legal 100%",
+        badgeClass: "badge-refill",
+        desc: "Top-up diamond Free Fire, proses cepat pakai User ID.",
+        placeholder: "Masukkan User ID Free Fire",
+        label: "User ID Free Fire"
+      },
     ];
 
     // Application State
@@ -1700,6 +2470,7 @@
       grid.innerHTML = best.map((item) => `
         <article class="product-card" data-id="${item.id}">
           <div class="card-top">
+            ${item.img ? `<div class="product-img"><img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'"></div>` : (item.emoji ? `<div class="product-img"><span>${item.emoji}</span></div>` : "")}
             <div class="card-meta">
               <span class="platform-label">${item.categoryLabel}</span>
               <span class="badge-tag badge-hot">Best Seller</span>
@@ -1744,6 +2515,7 @@
           return `
             <article class="product-card ${isSelected ? "selected" : ""}" data-id="${item.id}">
               <div class="card-top">
+                ${item.img ? `<div class="product-img"><img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'"></div>` : (item.emoji ? `<div class="product-img"><span>${item.emoji}</span></div>` : "")}
                 <div class="card-meta">
                   <span class="platform-label">${item.categoryLabel}</span>
                   <span class="badge-tag ${item.badgeClass}">${item.badge}</span>
