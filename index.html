@@ -26,10 +26,10 @@
       --color-muted: #94A3B8;
       --color-hairline: #E2E8F0;
 
-      /* Decorative & Action Accents */
-      --color-lime: #58CC02;
-      --color-lime-hover: #4DB502;
-      --color-lime-shadow: #BBF7D0;
+      /* Decorative & Action Accents - ADR ungu, bukan hijau Topupskuy */
+      --color-lime: #7C3AED;
+      --color-lime-hover: #6D28D9;
+      --color-lime-shadow: #DDD6FE;
       --color-indigo-shadow: #C7D2FE;
       --color-accent-blue: #0369A1;
       --color-accent-orange: #C2410C;
@@ -857,6 +857,109 @@
       border-radius: 12px;
     }
 
+    /* Bar pengumuman ungu ADR */
+    .announce-bar {
+      background: linear-gradient(90deg, #7C3AED, #6366F1);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px 12px;
+    }
+    /* Hero gaya Topupskuy tapi ungu ADR */
+    .hero-card {
+      background: linear-gradient(135deg, #7C3AED, #6366F1 55%, #A78BFA);
+      border: none;
+      color: #FFFFFF;
+    }
+    .hero-headline, .hero-sub { color: #FFFFFF; }
+    .hero-eyebrow { background-color: rgba(255,255,255,0.2); color: #FFFFFF; }
+    .hero-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .hero-panel {
+      background-color: #FFFFFF;
+      color: var(--color-ink);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .hero-panel strong { display: block; font-size: 13px; color: var(--color-link); margin-bottom: 4px; }
+    /* Navigasi bawah nempel, ungu */
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 45;
+      background-color: #EDE9FE;
+      border-top: 1px solid var(--color-hairline);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+    }
+    .bottom-nav a {
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--color-ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 4px 8px;
+    }
+    body { padding-bottom: 64px; }
+
+    /* Floating WhatsApp button */
+    .wa-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background-color: #25D366;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.45);
+    }
+    .wa-float:hover { background-color: #1EBE5B; }
+
+    /* Best seller + testimonials */
+    .best-seller-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 4px;
+    }
+    @media (min-width: 600px) {
+      .best-seller-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 768px) {
+      .testi-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .testi-card {
+      background-color: var(--color-canvas);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .testi-stars { color: #F59E0B; font-size: 14px; letter-spacing: 2px; }
+    .testi-text { font-size: 13px; color: var(--color-body); line-height: 1.55; }
+    .testi-name { font-size: 13px; font-weight: 900; color: var(--color-ink); }
+    .testi-name span { display: block; font-size: 11px; font-weight: 600; color: var(--color-muted); }
+
     /* ==========================================================================
        6. FOOTER
        ========================================================================== */
@@ -998,6 +1101,9 @@
 </head>
 <body>
 
+  <!-- Bar pengumuman -->
+  <div class="announce-bar">📢 ORDER CEPAT VIA WHATSAPP — HARGA RESELLER TERMURAH, ADA GARANSI REFILL!</div>
+
   <!-- ========================================================================
        STICKY HEADER
        ======================================================================== -->
@@ -1053,6 +1159,22 @@
           <span class="mini-chip">🛡️ Tersedia Layanan Refill</span>
           <span class="mini-chip">💳 QRIS / E-Wallet / Bank</span>
         </div>
+        <div class="hero-panels">
+          <div class="hero-panel">
+            <strong>APLIKASI PREMIUM</strong>
+            Canva mulai Rp5.000/bln<br />
+            CapCut Rp15.000/bln<br />
+            Netflix Rp32.000/bln<br />
+            Spotify Rp14.000/bln
+          </div>
+          <div class="hero-panel">
+            <strong>SOSIAL MEDIA</strong>
+            TikTok Views mulai Rp3.000<br />
+            TikTok Followers mulai Rp18.000<br />
+            IG Likes mulai Rp5.000<br />
+            IG Followers mulai Rp15.000
+          </div>
+        </div>
       </div>
 
       <aside class="snk-alert-box" aria-label="Peringatan SNK">
@@ -1071,6 +1193,18 @@
         </ul>
         <button type="button" class="btn-link-snk" id="openSnkInlineBtn">Baca detail lengkap SNK &rarr;</button>
       </aside>
+    </section>
+
+    <!-- BEST SELLER: langsung terlihat saat halaman dibuka -->
+    <section class="section-card" id="bestSellerSection">
+      <div class="step-header">
+        <div class="step-number">★</div>
+        <div>
+          <h2 class="step-title">Best Seller — Paling Laris</h2>
+          <p class="step-desc">Klik salah satu paket untuk langsung mengisi data pesanan.</p>
+        </div>
+      </div>
+      <div class="best-seller-grid" id="bestSellerGrid"></div>
     </section>
 
     <!-- STEP 1 & STEP 2: PILIH KATEGORI & PAKET LAYANAN -->
@@ -1216,7 +1350,40 @@
       </div>
     </section>
 
+    <!-- TESTIMONI: ganti nama dan isi dengan testimoni asli pelanggan -->
+    <section class="section-card" id="testimoniSection">
+      <div class="step-header">
+        <div class="step-number">♥</div>
+        <div>
+          <h2 class="step-title">Testimoni Pelanggan</h2>
+          <p class="step-desc">Bukti order masuk dan diproses cepat. Ganti contoh di bawah dengan testimoni asli.</p>
+        </div>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">“Order 1.000 followers TikTok, masuk semua dan ada refill pas turun sedikit. Admin fast respon.”</p>
+          <div class="testi-name">Rian <span>TikTok Followers 1K — Subang</span></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">“Canva Pro 5 ribu langsung aktif di email sendiri. Murah, aman, langsung bisa dipakai.”</p>
+          <div class="testi-name">Sinta <span>Canva Pro 1 Bulan</span></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">“Views TikTok 10 ribu masuk cepat banget, nggak sampai sejam. Bakal order lagi.”</p>
+          <div class="testi-name">Dimas <span>TikTok Views 10K</span></div>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- Tombol WA mengambang -->
+  <a class="wa-float" href="https://wa.me/6285320340377?text=Halo%20Admin%20ADR%20DIGITAL%2C%20saya%20mau%20tanya%20layanan" target="_blank" rel="noopener noreferrer">
+    💬 Chat Admin WA
+  </a>
 
   <!-- ========================================================================
        FOOTER
@@ -1234,6 +1401,15 @@
       </a>
     </div>
   </footer>
+
+  <!-- Navigasi bawah -->
+  <nav class="bottom-nav">
+    <a href="#">🏠 Home</a>
+    <a href="#bestSellerSection">👑 Premium</a>
+    <a href="#checkoutSection">💉 Suntik Sosmed</a>
+    <a href="#" id="bottomSnkLink">⛔ SNK</a>
+    <a href="https://wa.me/6285320340377" target="_blank" rel="noopener noreferrer">🎁 WA Admin</a>
+  </nav>
 
   <!-- ========================================================================
        MODAL SYARAT & KETENTUAN (SNK)
@@ -1516,6 +1692,32 @@
     const closeSnkBtn = document.getElementById("closeSnkBtn");
     const confirmSnkModalBtn = document.getElementById("confirmSnkModalBtn");
 
+    // Render Best Seller (badge "Best Seller") di atas katalog, agar langsung terlihat
+    function renderBestSellers() {
+      const best = PRODUCTS.filter((item) => item.badge === "Best Seller");
+      const grid = document.getElementById("bestSellerGrid");
+      if (!grid) return;
+      grid.innerHTML = best.map((item) => `
+        <article class="product-card" data-id="${item.id}">
+          <div class="card-top">
+            <div class="card-meta">
+              <span class="platform-label">${item.categoryLabel}</span>
+              <span class="badge-tag badge-hot">Best Seller</span>
+            </div>
+            <h3 class="product-name">${item.name}</h3>
+            <p class="product-desc">${item.desc}</p>
+          </div>
+          <div class="card-bottom">
+            <span class="product-price">${item.price}</span>
+            <button type="button" class="btn-select-pkg">Pilih Paket</button>
+          </div>
+        </article>
+      `).join("");
+      grid.querySelectorAll(".product-card").forEach((card) => {
+        card.addEventListener("click", () => selectProduct(card.getAttribute("data-id"), true));
+      });
+    }
+
     // Render Product Catalog
     function renderProducts() {
       const filtered = PRODUCTS.filter((item) => {
@@ -1679,6 +1881,8 @@
 
     openSnkBtn.addEventListener("click", openModal);
     openSnkInlineBtn.addEventListener("click", openModal);
+    const bottomSnkLink = document.getElementById("bottomSnkLink");
+    if (bottomSnkLink) bottomSnkLink.addEventListener("click", (e) => { e.preventDefault(); openModal(); });
     closeSnkBtn.addEventListener("click", closeModal);
     confirmSnkModalBtn.addEventListener("click", () => {
       snkConfirmCheckbox.checked = true;
@@ -1691,8 +1895,3 @@
     });
 
     // Initialize App
-    renderProducts();
-    selectProduct(PRODUCTS[0].id, false);
-  </script>
-</body>
-</html>
